@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PIIIVOT // Dispatch Desk & Visual CMS Studio</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --ink-2:#141413;
+    --ink-3:#1c1b19;
+    --ink-4:#262522;
+    --paper:#f5f4ef;
+    --paper-2:#e9e7df;
+    --mid:#98958a;
+    --line:#2e2d2a;
+    --accent:#22c55e;
+    --danger:#ef4444;
+    --warning:#f59e0b;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--ink); color:var(--paper); font-family:'IBM Plex Sans',sans-serif; line-height:1.5; min-height:100vh; overflow-x:hidden;}
+  a{color:inherit; text-decoration:none;}
+  button, input, select, textarea{font-family:inherit;}
+  button{cursor:pointer;}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .anton{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.02em;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--mid);}
+
+  /* ---------- AUTH GATE ---------- */
+  .auth-gate{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at center, #181816 0%, #0a0a0a 100%);
+    z-index:2000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .auth-gate.hidden{display:none;}
+  .auth-card{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    max-width:440px;
+    width:100%;
+    padding:clamp(28px, 5vw, 44px);
+    box-shadow:0 25px 60px rgba(0,0,0,0.8);
+  }
+  .auth-logo-row{display:flex; align-items:center; gap:12px; margin-bottom:24px;}
+  .auth-logo-row svg{width:28px; height:28px;}
+  .auth-title{font-family:'Anton',sans-serif; font-size:26px; text-transform:uppercase; margin-bottom:6px; letter-spacing:.02em;}
+  .auth-sub{color:var(--mid); font-size:13px; margin-bottom:28px; line-height:1.4;}
+
+  .form-group{margin-bottom:18px;}
+  .form-group label{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--mid); margin-bottom:6px;}
+  .form-control{
+    width:100%;
+    background:var(--ink);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:11px 13px;
+    font-size:13px;
+    border-radius:var(--radius);
+    transition:border-color .2s ease;
+  }
+  .form-control:focus{outline:none; border-color:var(--paper);}
+  
+  .btn-admin-primary{
+    width:100%;
+    background:var(--paper);
+    color:var(--ink);
+    border:none;
+    padding:13px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    border-radius:var(--radius);
+    transition:transform .2s ease, opacity .2s ease;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  .btn-admin-primary:hover{opacity:.88; transform:translateY(-1px);}
+
+  .btn-admin-accent{
+    background:#22c55e;
+    color:#0a0a0a;
+    border:none;
+    padding:8px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    border-radius:var(--radius);
+    transition:all .18s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .btn-admin-accent:hover{background:#4ade80; transform:translateY(-1px);}
+
+  .btn-admin-outline{
+    background:transparent;
+    color:var(--paper);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    border-radius:var(--radius);
+    transition:all .2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .btn-admin-outline:hover{border-color:var(--paper); background:var(--ink-3);}
+
+  .btn-admin-danger{
+    background:rgba(239,68,68,0.15);
+    color:#f87171;
+    border:1px solid #ef4444;
+    padding:7px 12px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    border-radius:var(--radius);
+    transition:all .2s ease;
+  }
+  .btn-admin-danger:hover{background:#ef4444; color:#fff;}
+
+  /* ---------- MAIN ADMIN APPLICATION ---------- */
+  .admin-app{display:none; min-height:100vh; flex-direction:column;}
+  .admin-app.active{display:flex;}
+
+  /* Top Navigation Bar with Master Portal Switch */
+  .admin-topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(18,18,17,0.96);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    padding:10px clamp(16px, 3vw, 32px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .topbar-left{display:flex; align-items:center; gap:14px;}
+  .topbar-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:2px;
+  }
+  .status-pulse{width:6px; height:6px; background:var(--accent); border-radius:50%; box-shadow:0 0 8px var(--accent);}
+
+  /* Master Portal Switcher Tabs */
+  .master-portal-tabs{
+    display:flex;
+    background:var(--ink);
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    gap:4px;
+  }
+  .portal-tab-btn{
+    background:transparent;
+    border:none;
+    color:var(--mid);
+    padding:8px 18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    border-radius:2px;
+    transition:all .2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .portal-tab-btn:hover{color:var(--paper);}
+  .portal-tab-btn.active{
+    background:var(--paper);
+    color:var(--ink);
+    box-shadow:0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  /* Portal Views */
+  .portal-view{display:none; width:100%;}
+  .portal-view.active{display:block;}
+
+  .portal-container{padding:clamp(20px, 4vw, 36px); max-width:1400px; margin:0 auto;}
+
+  .portal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:24px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .portal-header h1{font-family:'Anton',sans-serif; font-size:clamp(26px, 3.5vw, 38px); letter-spacing:.02em; text-transform:uppercase;}
+  .portal-header p{color:var(--mid); font-size:13.5px; margin-top:4px;}
+
+  /* Sub Tab Controls */
+  .sub-tabs-bar{display:flex; gap:10px; margin-bottom:20px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .sub-tab-btn{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--mid);
+    padding:8px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    border-radius:2px;
+    transition:all .18s ease;
+  }
+  .sub-tab-btn:hover{color:var(--paper); border-color:var(--paper);}
+  .sub-tab-btn.active{background:var(--ink-2); color:var(--paper); border-color:var(--accent); font-weight:700;}
+
+  .sub-pane{display:none;}
+  .sub-pane.active{display:block;}
+
+  /* KPI Grid */
+  .kpi-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin-bottom:28px;}
+  .kpi-card{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    padding:18px 20px;
+    border-radius:var(--radius);
+  }
+  .kpi-label{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--mid);}
+  .kpi-value{font-family:'Anton',sans-serif; font-size:30px; color:var(--paper); margin:6px 0 4px; letter-spacing:.02em;}
+  .kpi-sub{font-size:11.5px; color:var(--accent); font-family:'IBM Plex Mono',monospace;}
+
+  /* Tables & Stock Switches */
+  .admin-table-wrap{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow-x:auto;
+  }
+  .admin-table{width:100%; border-collapse:collapse; font-size:13px; text-align:left;}
+  .admin-table th{
+    background:var(--ink-3);
+    padding:12px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--mid);
+    border-bottom:1px solid var(--line);
+  }
+  .admin-table td{padding:12px 16px; border-bottom:1px solid rgba(255,255,255,0.05); vertical-align:middle;}
+  .admin-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+  .stock-switch{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    border-radius:2px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:all .2s ease;
+  }
+  .stock-switch.in-stock{
+    background:rgba(34,197,94,0.15);
+    color:#4ade80;
+    border-color:#22c55e;
+  }
+  .stock-switch.out-of-stock{
+    background:rgba(239,68,68,0.15);
+    color:#f87171;
+    border-color:#ef4444;
+  }
+
+  .admin-card{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    padding:clamp(18px, 3vw, 28px);
+    margin-bottom:20px;
+    border-radius:var(--radius);
+  }
+  .admin-card-title{
+    font-family:'Anton',sans-serif;
+    font-size:19px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    letter-spacing:.02em;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+
+  /* ========================================================================= */
+  /* VISUAL BUILDER STUDIO WORKSPACE (INSIDE ADMIN)                            */
+  /* ========================================================================= */
+  .studio-workspace{
+    display:flex;
+    flex-direction:column;
+    height:calc(100vh - 61px);
+    background:#0e0e0d;
+    overflow:hidden;
+  }
+  
+  /* Studio Action Bar */
+  .studio-top-controls{
+    background:var(--ink-2);
+    border-bottom:1px solid var(--line);
+    padding:10px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .studio-left-group{display:flex; align-items:center; gap:12px;}
+  .viewport-switchers{
+    display:flex;
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:2px;
+    gap:2px;
+  }
+  .viewport-btn{
+    background:none;
+    border:none;
+    color:var(--mid);
+    padding:5px 10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .viewport-btn.active{
+    background:var(--ink-3);
+    color:var(--paper);
+    font-weight:700;
+  }
+
+  /* Studio Split Layout: Left Toolbox + Center Canvas */
+  .studio-main-split{
+    flex:1;
+    display:grid;
+    grid-template-columns:320px 1fr;
+    height:calc(100% - 53px);
+    overflow:hidden;
+  }
+
+  /* Left Toolbox */
+  .studio-toolbox{
+    background:var(--ink-2);
+    border-right:1px solid var(--line);
+    overflow-y:auto;
+    padding:18px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .toolbox-section-title{
+    font-size:10px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--mid);
+    margin-bottom:8px;
+    display:block;
+  }
+  .tool-item-card{
+    background:var(--ink-3);
+    border:1px solid var(--line);
+    padding:10px 12px;
+    border-radius:2px;
+    margin-bottom:6px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:all .15s ease;
+  }
+  .tool-item-card:hover{
+    border-color:var(--accent);
+    background:var(--ink-4);
+    transform:translateX(3px);
+  }
+  .tool-item-card strong{font-size:11px; display:block; color:var(--paper);}
+  .tool-item-card span{font-size:9px; color:var(--mid);}
+
+  /* Center Canvas Frame Wrapper */
+  .studio-canvas-area{
+    background:#080808;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    overflow:auto;
+  }
+  .canvas-device-wrapper{
+    width:100%;
+    height:100%;
+    max-width:100%;
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:4px;
+    box-shadow:0 15px 50px rgba(0,0,0,0.8);
+    overflow:hidden;
+    transition:max-width .3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .canvas-device-wrapper.tablet{max-width:768px;}
+  .canvas-device-wrapper.mobile{max-width:380px;}
+
+  .studio-iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    background:var(--ink);
+  }
+
+  /* Toast Notification */
+  .admin-toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:var(--paper);
+    color:var(--ink);
+    padding:12px 20px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.06em;
+    font-weight:700;
+    text-transform:uppercase;
+    border-radius:2px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    transform:translateY(80px);
+    opacity:0;
+    transition:all .3s cubic-bezier(.16,1,.3,1);
+    z-index:3000;
+  }
+  .admin-toast.show{transform:translateY(0); opacity:1;}
+
+  @media (max-width:960px){
+    .admin-topbar{flex-direction:column; align-items:flex-start;}
+    .master-portal-tabs{width:100%;}
+    .portal-tab-btn{flex:1; justify-content:center;}
+    .studio-main-split{grid-template-columns:1fr;}
+    .studio-toolbox{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. AUTHENTICATION GATE SCREEN -->
+<div class="auth-gate" id="authGate">
+  <div class="auth-card">
+    <div class="auth-logo-row">
+      <span id="authLogoIcon"></span>
+      <div>
+        <div class="anton" style="font-size:20px; letter-spacing:.06em;">PIIIVOT</div>
+        <div class="eyebrow" style="font-size:9.5px;">ADMIN CONTROL DESK</div>
+      </div>
+    </div>
+    <h1 class="auth-title">Dispatcher Login</h1>
+    <p class="auth-sub">Enter verified credentials to access order dispatch, stock control, and the Wix-style visual builder studio.</p>
+
+    <form onsubmit="event.preventDefault(); handleAdminLogin();">
+      <div class="form-group">
+        <label>Operator Username</label>
+        <input type="text" id="loginUser" class="form-control" placeholder="admin" required autofocus>
+      </div>
+      <div class="form-group">
+        <label>Security Key / Password</label>
+        <input type="password" id="loginPass" class="form-control" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-admin-primary" style="margin-top:10px;">
+        <span>Authorize & Enter Desk →</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- 2. MAIN APPLICATION -->
+<div class="admin-app" id="adminApp">
+
+  <!-- Top Bar with Master 2-Option Portals -->
+  <header class="admin-topbar">
+    <div class="topbar-left">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="topbarLogoIcon" style="width:24px; height:24px;"></span>
+        <span class="anton" style="font-size:18px;">PIIIVOT // CONTROL</span>
+      </div>
+      <span class="topbar-badge">
+        <span class="status-pulse"></span>
+        <span>DHAKA DESK ACTIVE</span>
+      </span>
+    </div>
+
+    <!-- The 2 Core Master Portals -->
+    <div class="master-portal-tabs">
+      <button class="portal-tab-btn active" id="btnPortalOps" onclick="switchPortal('portal-ops', this)">
+        <span>📦 1. Orders & Stock Management</span>
+      </button>
+      <button class="portal-tab-btn" id="btnPortalCms" onclick="switchPortal('portal-cms', this)">
+        <span>🎨 2. CMS & Visual Site Builder</span>
+      </button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="index.html" target="_blank" class="btn-admin-outline">
+        <span>Storefront ↗</span>
+      </a>
+      <button onclick="handleAdminLogout()" class="btn-admin-danger">
+        <span>Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- PORTAL 1: ORDER & STOCK MANAGEMENT                                         -->
+  <!-- ========================================================================= -->
+  <main class="portal-view active" id="portal-ops">
+    <div class="portal-container">
+      <div class="portal-header">
+        <div>
+          <p class="eyebrow">Store Operations Desk</p>
+          <h1>Order &amp; Stock Management</h1>
+          <p>Confirm placed customer orders, initiate direct WhatsApp chat, and toggle product stock status.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button onclick="renderPortalOps()" class="btn-admin-outline">Refresh Queue ⟳</button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Gross Revenue (BDT)</div>
+          <div class="kpi-value" id="kpiRevenue">৳ 0</div>
+          <div class="kpi-sub">✓ Confirmed & COD Orders</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Placed Orders</div>
+          <div class="kpi-value" id="kpiOrders">0</div>
+          <div class="kpi-sub">Dhaka & Nationwide</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Active Catalog Items</div>
+          <div class="kpi-value" id="kpiProducts">0</div>
+          <div class="kpi-sub">Combat & Apparel</div>
+        </div>
+      </div>
+
+      <!-- Sub Navigation for Portal 1 -->
+      <div class="sub-tabs-bar">
+        <button class="sub-tab-btn active" onclick="switchSubPane('pane-orders', this)">
+          <span>📦 Placed Orders Queue</span>
+        </button>
+        <button class="sub-tab-btn" onclick="switchSubPane('pane-stock', this)">
+          <span>🏷️ Stock & Inventory Controller</span>
+        </button>
+      </div>
+
+      <!-- SUB-PANE 1A: ORDERS QUEUE -->
+      <div class="sub-pane active" id="pane-orders">
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <span>Customer Orders Desk</span>
+            <span class="eyebrow">Real-Time Dispatch Queue</span>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Customer Name</th>
+                  <th>Phone / WhatsApp</th>
+                  <th>Delivery Address</th>
+                  <th>Items Summary</th>
+                  <th>Total (BDT)</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-PANE 1B: STOCK CONTROLLER -->
+      <div class="sub-pane" id="pane-stock">
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <span>Catalog Stock & Price Controller</span>
+            <span class="eyebrow">1-Click Availability Toggle</span>
+          </div>
+          <p style="color:var(--mid); font-size:13px; margin-bottom:18px;">
+            Click the Stock switch to immediately toggle products between <strong>In Stock</strong> and <strong>Out of Stock</strong> across the entire storefront and product pages.
+          </p>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product Drop</th>
+                  <th>SKU</th>
+                  <th>Category</th>
+                  <th>Price (BDT ৳)</th>
+                  <th>Badge</th>
+                  <th>Stock Status (Click to Toggle)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="stockTableBody">
+                <!-- Injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PORTAL 2: WIX / WORDPRESS STYLE VISUAL CMS STUDIO (INSIDE ADMIN)           -->
+  <!-- ========================================================================= -->
+  <main class="portal-view" id="portal-cms">
+    <div class="studio-workspace">
+      
+      <!-- Studio Action & Viewport Bar -->
+      <div class="studio-top-controls">
+        <div class="studio-left-group">
+          <!-- Page Switcher -->
+          <select id="studioPageSelect" class="form-control" style="width:auto; padding:6px 12px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;" onchange="switchStudioPage(this.value)">
+            <option value="index.html?edit=true">📄 Page: Homepage (index.html)</option>
+            <option value="product.html?id=combat-01-shorts&edit=true">🏷️ Page: Product Details (product.html)</option>
+          </select>
+
+          <!-- Viewport Device Switcher -->
+          <div class="viewport-switchers">
+            <button class="viewport-btn active" onclick="setDeviceViewport('desktop', this)">🖥️ Desktop</button>
+            <button class="viewport-btn" onclick="setDeviceViewport('tablet', this)">💻 Tablet (768px)</button>
+            <button class="viewport-btn" onclick="setDeviceViewport('mobile', this)">📱 Mobile (375px)</button>
+          </div>
+        </div>
+
+        <!-- Studio Actions -->
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="display:flex; gap:4px;">
+            <button onclick="triggerIframeAction('undo')" class="btn-admin-outline" style="font-size:11px;" title="Undo (Ctrl+Z)">
+              <span>↶ Undo</span>
+            </button>
+            <button onclick="triggerIframeAction('redo')" class="btn-admin-outline" style="font-size:11px;" title="Redo (Ctrl+Y)">
+              <span>↷ Redo</span>
+            </button>
+          </div>
+          <button onclick="triggerIframeAction('insertElement', 'image')" class="btn-admin-outline" style="font-size:11px;">
+            <span>+ Add Image</span>
+          </button>
+          <button onclick="triggerIframeAction('insertElement', 'headline')" class="btn-admin-outline" style="font-size:11px;">
+            <span>+ Add Headline</span>
+          </button>
+          <button onclick="triggerIframeAction('saveAll')" class="btn-admin-accent" style="font-size:11px;">
+            <span>Save & Publish ✓</span>
+          </button>
+          <button onclick="reloadStudioCanvas()" class="btn-admin-outline" style="font-size:11px;" title="Reload Canvas Frame">
+            <span>⟳ Reload</span>
+          </button>
+          <a href="index.html?edit=true" target="_blank" class="btn-admin-outline" style="font-size:11px;" title="Open in Fullscreen">
+            <span>Fullscreen ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Studio Main Split: Left Tool Drawer + Center Interactive Canvas -->
+      <div class="studio-main-split">
+        
+        <!-- Left Toolbox Dock -->
+        <aside class="studio-toolbox">
+          <!-- Elements Inserter -->
+          <div>
+            <span class="toolbox-section-title">➕ Insert New Element</span>
+            
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'image')">
+              <div>
+                <strong>🖼️ Image Block</strong>
+                <span>Upload image from PC</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'headline')">
+              <div>
+                <strong>🔤 Headline (Anton)</strong>
+                <span>Bold display title</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'paragraph')">
+              <div>
+                <strong>📝 Text Paragraph</strong>
+                <span>Body copy & details</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'button')">
+              <div>
+                <strong>🔘 Action CTA Button</strong>
+                <span>Primary solid button</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'badge')">
+              <div>
+                <strong>🏷️ Tag / Badge Pill</strong>
+                <span>Status or drop badge</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+
+            <div class="tool-item-card" onclick="triggerIframeAction('insertElement', 'card')">
+              <div>
+                <strong>📦 Info Box Card</strong>
+                <span>Bordered container</span>
+              </div>
+              <span style="color:#22c55e;">+</span>
+            </div>
+          </div>
+
+          <!-- Quick Copy Editor Form -->
+          <div style="border-top:1px solid var(--line); padding-top:14px;">
+            <span class="toolbox-section-title">✍️ Fast Copy Editor</span>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label style="font-size:10px;">Hero Headline</label>
+              <textarea id="dockHeroTitle" rows="2" class="form-control" style="font-family:'Anton',sans-serif; font-size:14px;" oninput="syncDockCopy('hero.title', this.value)"></textarea>
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label style="font-size:10px;">Hero Subtitle</label>
+              <textarea id="dockHeroSubtitle" rows="2" class="form-control" style="font-size:11px;" oninput="syncDockCopy('hero.subtitle', this.value)"></textarea>
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label style="font-size:10px;">WhatsApp Number</label>
+              <input type="text" id="dockContactWhatsapp" class="form-control" style="font-size:11px;" oninput="syncDockCopy('contact.whatsapp', this.value)">
+            </div>
+          </div>
+        </aside>
+
+        <!-- Center Interactive Visual Canvas -->
+        <div class="studio-canvas-area">
+          <div class="canvas-device-wrapper" id="canvasDeviceWrapper">
+            <iframe src="index.html?edit=true" class="studio-iframe" id="studioCanvasIframe"></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- TOAST ALERT -->
+<div class="admin-toast" id="adminToast">
+  <span id="adminToastMsg">Changes saved</span>
+</div>
+
+<!-- Scripts -->
+<script src="js/products.js"></script>
+<script src="js/cms.js"></script>
+
+<script>
+  const LOGO_ARROW_PATH = "M49.75,137.09l28.96-45.49c-4.64-9.19-12.49-16.7-17.96-25.51h20.5c1.36,0,15.51,19.97,16.36,21.66.6,1.18,1.38,2.18.99,3.62l-28.84,45.72h-20ZM77.75,137.09c4.99-4.78,27.7-47,30.5-47h19.5l-30,47h-20ZM106.9,135.84l29.36-45.75h19.5l-39.01,61c-.76.52-10.15-13.4-9.84-15.25ZM136.24,180.08c-1.94.45-1.25-.56-1.75-1.25-2.78-3.88-11.93-16.37-13.25-19.81-1.57-4.06,6.84-13.15,9.02-16.93,1.62,1.31,4.11,9.59,6.52,7.52l42.97-66.53h-76.5c-2.52,0-10.84-14.59-13.5-17h121l-74.51,113.99Z";
+  
+  function logoSVG(color){
+    return `<svg viewBox="28 42 200 144" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <path d="${LOGO_ARROW_PATH}" fill="${color}"/>
+    </svg>`;
+  }
+
+  document.getElementById('authLogoIcon').innerHTML = logoSVG('#f5f4ef');
+  document.getElementById('topbarLogoIcon').innerHTML = logoSVG('#f5f4ef');
+
+  function checkAuth() {
+    if (window.PIIIVOT_CMS && window.PIIIVOT_CMS.isLoggedIn()) {
+      document.getElementById('authGate').classList.add('hidden');
+      document.getElementById('adminApp').classList.add('active');
+      renderPortalOps();
+      populateDockCopy();
+    } else {
+      document.getElementById('authGate').classList.remove('hidden');
+      document.getElementById('adminApp').classList.remove('active');
+    }
+  }
+
+  function handleAdminLogin() {
+    const user = document.getElementById('loginUser').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
+    if (window.PIIIVOT_CMS.login(user, pass)) {
+      showToast("Access Granted");
+      checkAuth();
+    } else {
+      alert("Invalid Credentials. Please check username and password.");
+    }
+  }
+
+  function handleAdminLogout() {
+    window.PIIIVOT_CMS.logout();
+    checkAuth();
+  }
+
+  function switchPortal(portalId, btn) {
+    document.querySelectorAll('.portal-view').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.portal-tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(portalId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchSubPane(paneId, btn) {
+    const parent = btn.closest('.portal-view');
+    parent.querySelectorAll('.sub-pane').forEach(p => p.classList.remove('active'));
+    parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById(paneId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('adminToast');
+    document.getElementById('adminToastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+
+  // ==========================================
+  // PORTAL 1: ORDER & STOCK LOGIC
+  // ==========================================
+  function renderPortalOps() {
+    renderOrders();
+    renderStock();
+    renderKPIs();
+  }
+
+  function renderKPIs() {
+    const orders = window.PIIIVOT_CMS.getOrders();
+    const products = window.PIIIVOT_CMS.getProducts();
+
+    const revenue = orders.reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+    document.getElementById('kpiRevenue').textContent = `৳ ${revenue.toLocaleString()}`;
+    document.getElementById('kpiOrders').textContent = orders.length;
+    document.getElementById('kpiProducts').textContent = Object.keys(products).length;
+  }
+
+  function renderOrders() {
+    const orders = window.PIIIVOT_CMS.getOrders();
+    const tbody = document.getElementById('ordersTableBody');
+    if (orders.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--mid); padding:24px;">No customer orders placed yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = orders.map(o => {
+      const itemsList = (o.items || []).map(i => `${i.name} (${i.size || 'M'}) x${i.qty || 1}`).join('<br>');
+      const waMsg = encodeURIComponent(`Hi ${o.customerName}, this is PIIIVOT Dhaka confirming your order (${o.id}) for ৳${o.total}. Is your address (${o.address}) confirmed for delivery?`);
+      const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
+
+      return `
+        <tr>
+          <td class="mono"><strong>${o.id}</strong></td>
+          <td class="mono" style="color:var(--mid); font-size:11px;">${o.date}</td>
+          <td><strong>${o.customerName}</strong></td>
+          <td class="mono">${o.phone}</td>
+          <td style="max-width:200px; font-size:12px; color:var(--mid);">${o.address}</td>
+          <td style="font-size:12px;">${itemsList}</td>
+          <td class="mono"><strong>৳ ${Number(o.total).toLocaleString()}</strong></td>
+          <td>
+            <select onchange="updateOrderStatus('${o.id}', this.value)" class="form-control" style="padding:4px 8px; font-size:11px; font-family:'IBM Plex Mono',monospace;">
+              <option value="Pending Verification" ${o.status === 'Pending Verification' ? 'selected' : ''}>Pending</option>
+              <option value="Confirmed" ${o.status === 'Confirmed' ? 'selected' : ''}>✓ Confirmed</option>
+              <option value="Dispatched" ${o.status === 'Dispatched' ? 'selected' : ''}>🚚 Dispatched</option>
+              <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+              <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+            </select>
+          </td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <a href="https://wa.me/${cleanPhone}?text=${waMsg}" target="_blank" class="btn-admin-outline" style="padding:4px 8px; font-size:10px; color:#22c55e; border-color:#22c55e;">
+                💬 WA
+              </a>
+              <button onclick="confirmOrder('${o.id}')" class="btn-admin-outline" style="padding:4px 8px; font-size:10px;">
+                ✓ Confirm
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function confirmOrder(id) {
+    window.PIIIVOT_CMS.updateOrderStatus(id, 'Confirmed');
+    showToast(`Order ${id} Confirmed ✓`);
+    renderOrders();
+  }
+
+  function updateOrderStatus(id, status) {
+    window.PIIIVOT_CMS.updateOrderStatus(id, status);
+    showToast(`Order ${id} status updated`);
+  }
+
+  function renderStock() {
+    const products = Object.values(window.PIIIVOT_CMS.getProducts());
+    const tbody = document.getElementById('stockTableBody');
+
+    tbody.innerHTML = products.map(p => {
+      const isStock = p.inStock !== false;
+      return `
+        <tr>
+          <td>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:36px; height:36px; background:var(--ink-3); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:'Anton',sans-serif; font-size:9px;">
+                ${p.name.substring(0,6)}
+              </div>
+              <div>
+                <strong>${p.name}</strong>
+                <div style="font-size:11px; color:var(--mid);">${(p.shortDesc || '').substring(0, 40)}...</div>
+              </div>
+            </div>
+          </td>
+          <td class="mono">${p.sku || '-'}</td>
+          <td class="mono" style="text-transform:uppercase;">${p.category}</td>
+          <td>
+            <input type="number" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" class="form-control mono" style="width:100px; padding:4px 8px; font-size:12px;">
+          </td>
+          <td><span class="eyebrow" style="color:var(--paper);">${p.badge || 'Drop'}</span></td>
+          <td>
+            <button onclick="toggleStock('${p.id}')" class="stock-switch ${isStock ? 'in-stock' : 'out-of-stock'}">
+              <span>${isStock ? '● IN STOCK' : '○ OUT OF STOCK'}</span>
+            </button>
+          </td>
+          <td>
+            <a href="product.html?id=${p.id}" target="_blank" class="btn-admin-outline" style="padding:4px 8px; font-size:11px;">
+              View ↗
+            </a>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function toggleStock(id) {
+    const p = window.PIIIVOT_CMS.getProduct(id);
+    if (!p) return;
+    p.inStock = p.inStock === false ? true : false;
+    window.PIIIVOT_CMS.saveProduct(p);
+    showToast(`${p.name} is now ${p.inStock ? 'IN STOCK' : 'OUT OF STOCK'}`);
+    renderStock();
+  }
+
+  function updateProductPrice(id, newPrice) {
+    const p = window.PIIIVOT_CMS.getProduct(id);
+    if (!p) return;
+    p.price = Number(newPrice);
+    p.priceFormatted = `৳ ${p.price.toLocaleString()}`;
+    window.PIIIVOT_CMS.saveProduct(p);
+    showToast(`${p.name} price updated to ৳ ${p.price}`);
+  }
+
+  // ==========================================
+  // PORTAL 2: VISUAL BUILDER STUDIO CONTROLS
+  // ==========================================
+  function switchStudioPage(url) {
+    const iframe = document.getElementById('studioCanvasIframe');
+    if (iframe) iframe.src = url;
+  }
+
+  function setDeviceViewport(mode, btn) {
+    const wrapper = document.getElementById('canvasDeviceWrapper');
+    document.querySelectorAll('.viewport-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    wrapper.classList.remove('tablet', 'mobile');
+    if (mode === 'tablet') wrapper.classList.add('tablet');
+    if (mode === 'mobile') wrapper.classList.add('mobile');
+  }
+
+  function reloadStudioCanvas() {
+    const iframe = document.getElementById('studioCanvasIframe');
+    if (iframe) iframe.src = iframe.src;
+    showToast("Canvas Reloaded ⟳");
+  }
+
+  function triggerIframeAction(action, arg) {
+    const iframe = document.getElementById('studioCanvasIframe');
+    if (iframe && iframe.contentWindow && iframe.contentWindow.PIIIVOT_BUILDER) {
+      if (action === 'insertElement') {
+        iframe.contentWindow.PIIIVOT_BUILDER.insertElement(arg);
+      } else if (action === 'undo') {
+        iframe.contentWindow.PIIIVOT_BUILDER.undo();
+      } else if (action === 'redo') {
+        iframe.contentWindow.PIIIVOT_BUILDER.redo();
+      } else if (action === 'saveAll') {
+        iframe.contentWindow.PIIIVOT_BUILDER.saveAll();
+        showToast("Visual Changes Published ✓");
+      }
+    }
+  }
+
+  // Global Parent Keyboard Listener for Undo/Redo
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+      if (e.shiftKey) {
+        e.preventDefault();
+        triggerIframeAction('redo');
+      } else {
+        e.preventDefault();
+        triggerIframeAction('undo');
+      }
+    } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+      e.preventDefault();
+      triggerIframeAction('redo');
+    }
+  });
+
+  function populateDockCopy() {
+    const content = window.PIIIVOT_CMS.getContent();
+    if (content.hero) {
+      document.getElementById('dockHeroTitle').value = content.hero.title || '';
+      document.getElementById('dockHeroSubtitle').value = content.hero.subtitle || '';
+    }
+    if (content.contact) {
+      document.getElementById('dockContactWhatsapp').value = content.contact.whatsapp || '';
+    }
+  }
+
+  function syncDockCopy(key, val) {
+    const updates = {};
+    if (key === 'hero.title') updates.hero = { title: val };
+    if (key === 'hero.subtitle') updates.hero = { subtitle: val };
+    if (key === 'contact.whatsapp') updates.contact = { whatsapp: val };
+    window.PIIIVOT_CMS.saveContent(updates);
+
+    // Refresh canvas after slight debounce
+    clearTimeout(window._dockSyncTimer);
+    window._dockSyncTimer = setTimeout(() => {
+      const iframe = document.getElementById('studioCanvasIframe');
+      if (iframe && iframe.contentWindow && iframe.contentWindow.PIIIVOT_CMS) {
+        iframe.contentWindow.PIIIVOT_CMS.bindStorefront();
+      }
+    }, 300);
+  }
+
+  document.addEventListener('DOMContentLoaded', checkAuth);
+</script>
+
+</body>
+</html>

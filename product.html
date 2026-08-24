@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Product Details — PIIIVOT Built to Compete</title>
+<meta name="description" content="Technical combat sports fightwear and performance training apparel by PIIIVOT Dhaka. Built to compete.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0a0a0a;         /* true near-black */
+    --ink-2:#161615;       /* card surface on dark */
+    --ink-3:#1f1e1c;       /* deeper hover surface */
+    --paper:#f5f4ef;       /* warm off-white */
+    --paper-2:#e9e7df;     /* surface on light */
+    --mid:#98958a;         /* dim text on dark */
+    --mid-on-light:#68655d;/* dim text on light */
+    --line:#333230;        /* hairline on dark */
+    --line-light:#d7d4c9;  /* hairline on light */
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{background:var(--ink); color:var(--paper); font-family:'IBM Plex Sans',sans-serif; line-height:1.5; overflow-x:hidden; min-width:320px;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer;}
+  .wrap{max-width:1200px; margin:0 auto; padding:0 clamp(16px, 4vw, 32px); width:100%;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:clamp(10.5px, 1.5vw, 12px); letter-spacing:.18em; text-transform:uppercase; color:var(--mid);}
+  .light .eyebrow{color:var(--mid-on-light);}
+  h1,h2,h3,h4{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.01em; line-height:.97; font-weight:400;}
+  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--ink); outline-offset:3px;}
+
+  /* ---------- LOGO SVG ---------- */
+  .logo-svg{width:100%; height:100%;}
+  .logo-svg path{fill-rule:nonzero;}
+
+  /* ---------- NAV (GLASS EFFECT) ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(10,10,10,.68);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid rgba(245,244,239,.12);
+    box-shadow:0 4px 30px rgba(0,0,0,.25);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:14px clamp(16px, 4vw, 32px); max-width:1200px; margin:0 auto; gap:20px;}
+  .logo-group{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+  .logo-mark{width:26px; height:26px; flex-shrink:0;}
+  .wordmark{font-family:'Anton',sans-serif; font-size:18px; letter-spacing:.08em;}
+  .nav-links{display:flex; gap:clamp(16px, 2.5vw, 30px); font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace;}
+  .nav-links a{color:var(--mid); transition:color .2s ease; position:relative; padding:4px 0;}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--paper); transition:width .25s ease;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-tools{display:flex; align-items:center; gap:16px;}
+  .icon-btn{background:none; border:none; color:var(--mid); position:relative; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:2px; transition:color .2s ease;}
+  .icon-btn:hover{color:var(--paper);}
+  .icon-btn svg{width:20px; height:20px; stroke-width:1.6;}
+  .cart-badge{position:absolute; top:1px; right:1px; background:var(--paper); color:var(--ink); font-size:9px; font-family:'IBM Plex Mono',monospace; border-radius:50%; width:15px; height:15px; display:flex; align-items:center; justify-content:center; font-weight:700;}
+
+  .menu-btn{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--paper);
+    width:36px;
+    height:36px;
+    font-size:18px;
+    align-items:center;
+    justify-content:center;
+    border-radius:var(--radius);
+  }
+
+  /* Mobile Navigation Drawer Overlay */
+  .mobile-nav-overlay{
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    background:rgba(10,10,10,0.8);
+    backdrop-filter:blur(10px);
+    z-index:900;
+    opacity:0;
+    visibility:hidden;
+    transition:all .3s ease;
+  }
+  .mobile-nav-overlay.open{opacity:1; visibility:visible;}
+  .mobile-nav-drawer{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    width:min(320px, 85vw);
+    background:var(--ink-2);
+    border-right:1px solid var(--line);
+    z-index:901;
+    display:flex;
+    flex-direction:column;
+    padding:24px;
+    transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.16,1,.3,1);
+    box-shadow:10px 0 30px rgba(0,0,0,0.5);
+  }
+  .mobile-nav-drawer.open{transform:translateX(0);}
+  .mobile-nav-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; border-bottom:1px solid var(--line); padding-bottom:16px;}
+  .mobile-nav-links{display:flex; flex-direction:column; gap:18px;}
+  .mobile-nav-links a{
+    font-family:'Anton',sans-serif;
+    font-size:22px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px 0;
+    border-bottom:1px solid rgba(245,244,239,0.06);
+  }
+  .mobile-nav-links a span{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mid);}
+  .mobile-nav-footer{margin-top:auto; padding-top:20px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--mid);}
+
+  /* ---------- BREADCRUMB & TECH STRIP (LIGHT) ---------- */
+  .tech-strip{
+    border-bottom:1px solid var(--line-light);
+    background:var(--paper-2);
+    padding:10px 0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--mid-on-light);
+  }
+  .tech-strip-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .breadcrumbs{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .breadcrumbs a{color:var(--mid-on-light); transition:color .2s ease;}
+  .breadcrumbs a:hover{color:var(--ink);}
+  .breadcrumbs span{color:var(--ink); font-weight:600;}
+  .status-tag{display:inline-flex; align-items:center; gap:6px; color:var(--ink); font-size:10.5px; font-weight:600;}
+  .status-dot{width:6px; height:6px; background:#16a34a; border-radius:50%; box-shadow:0 0 8px #16a34a;}
+
+  /* ---------- MAIN PRODUCT STAGE (WARM OFF-WHITE / BRIGHT CONTRAST) ---------- */
+  .product-stage{
+    background:var(--paper);
+    color:var(--ink);
+    padding:clamp(30px, 5vw, 60px) 0 clamp(50px, 8vw, 90px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .stage-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(32px, 5vw, 64px); align-items:start;}
+
+  /* Gallery Column */
+  .gallery-column{position:sticky; top:85px;}
+  .main-visual-frame{
+    aspect-ratio:1/1;
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .main-visual-frame::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center, rgba(10,10,10,0.025) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .visual-badge{
+    position:absolute;
+    top:14px;
+    left:14px;
+    z-index:2;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:5px 9px;
+    font-weight:700;
+  }
+  .visual-angle-tag{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:2;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    letter-spacing:.1em;
+    color:var(--mid-on-light);
+    background:var(--paper);
+    padding:4px 8px;
+    border:1px solid var(--line-light);
+  }
+  .product-graphic-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    transition:transform .3s ease;
+    padding:20px;
+    max-width:90%;
+  }
+  .product-big-code{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(36px, 5.5vw, 76px);
+    letter-spacing:.04em;
+    color:var(--ink);
+    opacity:.9;
+    line-height:.9;
+    margin-bottom:10px;
+    word-break:break-word;
+  }
+  .product-graphic-sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.15em;
+    color:var(--mid-on-light);
+    text-transform:uppercase;
+  }
+  .spec-grid-overlay{
+    position:absolute;
+    bottom:12px;
+    left:14px;
+    right:14px;
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    color:var(--mid-on-light);
+    border-top:1px solid var(--line-light);
+    padding-top:8px;
+    gap:6px;
+  }
+
+  /* Thumbnails */
+  .gallery-thumbs{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-top:12px;}
+  .thumb-btn{
+    aspect-ratio:1.15/1;
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:6px;
+    transition:all .22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor:pointer;
+  }
+  .thumb-tag{
+    font-family:'Anton',sans-serif;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--ink);
+    transition:color .22s cubic-bezier(0.16, 1, 0.3, 1);
+    display:block;
+    line-height:1;
+  }
+  .thumb-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--mid-on-light);
+    margin-top:4px;
+    transition:color .22s cubic-bezier(0.16, 1, 0.3, 1), opacity .22s ease;
+    display:block;
+    line-height:1.2;
+    text-align:center;
+  }
+  
+  /* Hover and Active states become stark dark with crisp white text */
+  .thumb-btn:hover,
+  .thumb-btn.active{
+    border-color:var(--ink);
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .thumb-btn:hover .thumb-tag,
+  .thumb-btn.active .thumb-tag{
+    color:var(--paper);
+  }
+  .thumb-btn:hover .thumb-label,
+  .thumb-btn.active .thumb-label{
+    color:var(--paper);
+    opacity:0.85;
+  }
+
+  /* Purchase & Specs Column */
+  .details-column{display:flex; flex-direction:column;}
+  .product-sku-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .product-sku{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; color:var(--mid-on-light);}
+  
+  .product-title{font-size:clamp(32px, 4.5vw, 54px); margin-bottom:12px; color:var(--ink);}
+  .price-row{display:flex; align-items:baseline; gap:14px; margin-bottom:20px; flex-wrap:wrap;}
+  .price-main{font-family:'IBM Plex Mono',monospace; font-size:clamp(22px, 3vw, 26px); font-weight:700; color:var(--ink);}
+  .tax-note{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mid-on-light);}
+
+  .product-desc{font-size:clamp(14.5px, 1.8vw, 15.5px); color:var(--mid-on-light); line-height:1.55; margin-bottom:24px;}
+
+  .option-block{margin-bottom:22px;}
+  .option-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .option-label{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink);}
+  .size-guide-btn{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mid-on-light); background:none; border:none; text-decoration:underline; text-underline-offset:3px;}
+  .size-guide-btn:hover{color:var(--ink);}
+
+  /* Color Swatches */
+  .color-swatches{display:flex; gap:8px; flex-wrap:wrap;}
+  .color-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    padding:8px 14px;
+    border-radius:var(--radius);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink);
+    transition:all .22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor:pointer;
+  }
+  .color-chip:hover,
+  .color-chip.active{
+    border-color:var(--ink);
+    color:var(--paper);
+    background:var(--ink);
+  }
+  .color-dot{width:12px; height:12px; border-radius:50%; border:1px solid rgba(0,0,0,0.2); transition:border-color .2s ease;}
+  .color-chip:hover .color-dot,
+  .color-chip.active .color-dot{border-color:rgba(255,255,255,0.4);}
+
+  /* Size Selector */
+  .size-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(60px, 1fr)); gap:8px;}
+  .size-btn{
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    color:var(--ink);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    padding:12px 0;
+    text-align:center;
+    border-radius:var(--radius);
+    transition:all .22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor:pointer;
+  }
+  .size-btn:hover,
+  .size-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
+
+  /* Action Row */
+  .action-row{display:grid; grid-template-columns:110px 1fr; gap:12px; margin:28px 0;}
+  .qty-stepper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    border-radius:var(--radius);
+    padding:0 6px;
+    height:50px;
+  }
+  .qty-stepper button{
+    background:none;
+    border:none;
+    color:var(--ink);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:18px;
+    width:32px;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .2s ease;
+  }
+  .qty-stepper button:hover{background:var(--paper);}
+  .qty-stepper span{font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; color:var(--ink);}
+  
+  .btn-add-bag{
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:clamp(12px, 1.5vw, 13.5px);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:700;
+    border-radius:var(--radius);
+    padding:0 clamp(16px, 3vw, 24px);
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .btn-add-bag:hover{opacity:.88; transform:translateY(-2px);}
+
+  /* Dispatch Feature Box */
+  .dispatch-card{
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    padding:16px 18px;
+    margin-bottom:26px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .dispatch-icon{font-size:20px; flex-shrink:0; line-height:1;}
+  .dispatch-text h6{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; color:var(--ink);}
+  .dispatch-text p{font-size:12.5px; color:var(--mid-on-light); line-height:1.45;}
+
+  /* Accordions */
+  .tech-accordions{border-top:1px solid var(--line-light);}
+  .accordion-item{border-bottom:1px solid var(--line-light);}
+  .accordion-trigger{
+    width:100%;
+    background:none;
+    border:none;
+    color:var(--ink);
+    padding:16px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-align:left;
+    font-weight:600;
+  }
+  .accordion-icon{font-size:16px; transition:transform .2s ease; color:var(--ink);}
+  .accordion-item.open .accordion-icon{transform:rotate(45deg);}
+  .accordion-content{
+    display:none;
+    padding-bottom:18px;
+    color:var(--mid-on-light);
+    font-size:13.5px;
+    line-height:1.55;
+  }
+  .accordion-item.open .accordion-content{display:block;}
+  .accordion-content ul{padding-left:18px; margin-bottom:10px;}
+  .accordion-content li{margin-bottom:6px;}
+
+  .spec-table{width:100%; border-collapse:collapse; font-size:12px; font-family:'IBM Plex Mono',monospace; margin-top:8px;}
+  .spec-table tr{border-bottom:1px solid rgba(10,10,10,0.08);}
+  .spec-table td{padding:8px 0;}
+  .spec-table td:first-child{color:var(--mid-on-light); width:45%;}
+  .spec-table td:last-child{color:var(--ink); text-align:right; font-weight:500;}
+
+  /* ---------- TAPE MEASURE ---------- */
+  .tape{position:relative; height:56px; display:flex; align-items:center; background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden;}
+  .tape-track{display:flex; align-items:center; white-space:nowrap; width:100%;}
+  .tape-seg{display:flex; align-items:flex-end; gap:2px; padding-right:14px; flex-shrink:0;}
+  .tick{width:1px; background:var(--line);}
+  .tick.major{height:18px; background:var(--paper);}
+  .tick.minor{height:9px;}
+  .tape-label{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mid); padding:0 18px; letter-spacing:.1em; border-left:1px solid var(--line); border-right:1px solid var(--line); flex-shrink:0;}
+
+  /* ---------- RELATED GEAR (WARM OFF-WHITE CONTRAST) ---------- */
+  .related-section{padding:clamp(50px, 8vw, 80px) 0; background:var(--paper); color:var(--ink);}
+  .related-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;}
+  .related-head h2{font-size:clamp(26px, 4vw, 38px);}
+  .related-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line-light); border:1px solid var(--line-light);}
+  .related-card{background:var(--paper); color:var(--ink); display:flex; flex-direction:column; transition:background .2s ease;}
+  .related-card:hover{background:var(--paper-2);}
+  .related-visual{aspect-ratio:1.2/1; background:var(--paper-2); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; color:inherit;}
+  .related-code{font-family:'Anton',sans-serif; font-size:clamp(24px, 3.5vw, 32px); color:var(--ink); opacity:.55; transition:transform .2s ease;}
+  .related-card:hover .related-code{opacity:.85; transform:scale(1.03);}
+  .related-body{padding:clamp(16px, 3vw, 22px); display:flex; flex-direction:column; flex:1;}
+  .related-tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:inline-block; color:var(--mid-on-light);}
+  .related-card h4{font-family:'Anton',sans-serif; font-size:18px; margin-bottom:6px;}
+  .related-foot{display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:14px; font-family:'IBM Plex Mono',monospace; font-size:13px;}
+
+  /* ---------- SIZE GUIDE MODAL (LIGHT THEME) ---------- */
+  .modal-overlay{
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    background:rgba(10,10,10,0.85);
+    backdrop-filter:blur(8px);
+    z-index:1500;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(12px, 3vw, 24px);
+    opacity:0;
+    visibility:hidden;
+    transition:all .25s ease;
+  }
+  .modal-overlay.open{opacity:1; visibility:visible;}
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--line-light);
+    color:var(--ink);
+    max-width:640px;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:clamp(20px, 4vw, 34px);
+    position:relative;
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+  }
+  .modal-box h3{font-size:clamp(22px, 3.5vw, 26px); margin-bottom:6px; color:var(--ink);}
+  .modal-box p{color:var(--mid-on-light); font-size:13px; margin-bottom:18px; line-height:1.45;}
+  .size-chart-table{width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:11.5px; margin-bottom:18px;}
+  .size-chart-table th{background:var(--paper-2); padding:9px 10px; text-align:left; border-bottom:1px solid var(--line-light); color:var(--ink); white-space:nowrap;}
+  .size-chart-table td{padding:9px 10px; border-bottom:1px solid var(--line-light); color:var(--mid-on-light); white-space:nowrap;}
+  .size-chart-table tr:hover td{color:var(--ink); background:rgba(0,0,0,0.02);}
+  .size-modal-note{
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    padding:14px 16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--mid-on-light);
+    line-height:1.45;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:clamp(36px, 6vw, 50px) 0 24px; border-top:1px solid var(--line); background:var(--ink);}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:clamp(20px, 3vw, 32px); margin-bottom:36px;}
+  .footer-col h5{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); margin-bottom:14px;}
+  .footer-col a{display:block; color:var(--mid); font-size:13.5px; margin-bottom:9px; transition:color .2s ease;}
+  .footer-col a:hover{color:var(--paper);}
+  .footer-col p{color:var(--mid); font-size:13.5px; max-width:280px; line-height:1.5;}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; padding-top:20px; border-top:1px solid var(--line);}
+  .footer-meta{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mid);}
+  .footer-social{display:flex; gap:16px;}
+  .footer-social a{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mid); text-transform:uppercase; letter-spacing:.06em;}
+  .footer-social a:hover{color:var(--paper);}
+
+  /* ---------- BREAKPOINTS ---------- */
+  @media (max-width:960px){
+    .nav-links{display:none;}
+    .menu-btn{display:flex;}
+    .stage-grid{grid-template-columns:1fr; gap:36px;}
+    .gallery-column{position:static;}
+    .related-grid{grid-template-columns:repeat(2, 1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:28px;}
+  }
+
+  @media (max-width:580px){
+    .related-grid{grid-template-columns:1fr;}
+    .action-row{grid-template-columns:1fr; gap:10px;}
+    .qty-stepper{justify-content:center; gap:20px;}
+    .footer-grid{grid-template-columns:1fr; gap:24px;}
+    .footer-bottom{flex-direction:column; align-items:flex-start; gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+  <div class="mobile-nav-header">
+    <div class="logo-group">
+      <span class="logo-mark" data-logo="dark"></span>
+      <span class="wordmark">PIIIVOT</span>
+    </div>
+    <button class="icon-btn" id="closeMobileNavBtn" aria-label="Close menu" style="border:1px solid var(--line); font-size:20px;">×</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html#combat" onclick="closeMobileNav()">Combat Sports <span>01</span></a>
+    <a href="index.html#apparel" onclick="closeMobileNav()">Training Apparel <span>02</span></a>
+    <a href="index.html#shop" onclick="closeMobileNav()">The Full Lineup <span>03</span></a>
+    <a href="index.html#about" onclick="closeMobileNav()">Manifesto <span>04</span></a>
+    <a href="index.html#trust" onclick="closeMobileNav()">Why Piiivot <span>05</span></a>
+    <a href="index.html#access" onclick="closeMobileNav()">Early Access <span>06</span></a>
+  </nav>
+  <div class="mobile-nav-footer">
+    <p>Rampura, Banasree · Dhaka, BD</p>
+    <p style="margin-top:6px; color:var(--paper);">WhatsApp: +880 1403-047993</p>
+  </div>
+</aside>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo-group">
+      <span class="logo-mark" data-logo="dark"></span>
+      <span class="wordmark">PIIIVOT</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#combat">Combat Sports</a>
+      <a href="index.html#apparel">Apparel</a>
+      <a href="index.html#shop">All Gear</a>
+      <a href="index.html#trust">About</a>
+    </div>
+    <div class="nav-tools">
+      <a href="index.html#shop" class="icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </a>
+      <button class="icon-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h2l1.5 10h11L20 8H7"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+        <span class="cart-badge">0</span>
+      </button>
+      <button class="menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+</header>
+
+<div class="tech-strip">
+  <div class="wrap tech-strip-inner">
+    <div class="breadcrumbs">
+      <a href="index.html">PIIIVOT</a> /
+      <a href="index.html#shop">SHOP</a> /
+      <span id="crumbCat">COMBAT</span> /
+      <span id="crumbName">COMBAT 01 SHORTS</span>
+    </div>
+    <div class="status-tag">
+      <span class="status-dot"></span>
+      <span id="crumbStatus">DHAKA DISPATCH ACTIVE</span>
+    </div>
+  </div>
+</div>
+
+<main class="product-stage">
+  <div class="wrap">
+    <div class="stage-grid">
+      
+      <!-- Left Column: Visual Showcase -->
+      <div class="gallery-column">
+        <div class="main-visual-frame" id="mainVisualFrame">
+          <span class="visual-badge" id="productBadge">FIRST DROP</span>
+          <span class="visual-angle-tag" id="visualAngleTag">MAIN // 01</span>
+          
+          <div class="product-graphic-container" id="productGraphicContainer">
+            <div class="product-big-code" id="productGraphicText">COMBAT 01</div>
+            <div class="product-graphic-sub" id="productGraphicSub">PIIIVOT · DHAKA LAB SPEC</div>
+          </div>
+
+          <div class="spec-grid-overlay">
+            <span>ORIGIN: DHAKA, BD</span>
+            <span id="techOverlaySku">PVT-CMB-SH01</span>
+            <span>SPEC: COMPETITION GRADE</span>
+          </div>
+        </div>
+
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Right Column: Product Detail & Purchase Rail -->
+      <div class="details-column">
+        <div class="product-sku-row">
+          <span class="eyebrow" id="productCategoryLabel" style="color:var(--mid-on-light);">COMBAT SPORTS // DROP 01</span>
+          <span class="product-sku" id="productSku">PVT-CMB-SH01</span>
+        </div>
+
+        <h1 class="product-title" id="productTitle">Combat 01 Shorts</h1>
+
+        <div class="price-row">
+          <span class="price-main" id="productPrice">৳ 1,490</span>
+          <span class="tax-note">// VAT Included · Cash on Delivery</span>
+        </div>
+
+        <p class="product-desc" id="productDesc">
+          Minimal fightwear silhouette with full-mobility construction engineered for striking, grappling, and intense mat rounds.
+        </p>
+
+        <!-- Color Options -->
+        <div class="option-block" id="colorBlock">
+          <div class="option-head">
+            <span class="option-label">Select Colorway: <strong id="selectedColorName" style="color:var(--ink);">Onyx Black</strong></span>
+          </div>
+          <div class="color-swatches" id="colorSwatches">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Size Options -->
+        <div class="option-block">
+          <div class="option-head">
+            <span class="option-label">Select Size: <strong id="selectedSizeName" style="color:var(--ink);">M</strong></span>
+            <button class="size-guide-btn" id="openSizeGuideBtn">Size & Fit Guide →</button>
+          </div>
+          <div class="size-grid" id="sizeGrid">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Action Row -->
+        <div class="action-row">
+          <div class="qty-stepper">
+            <button id="qtyMinus" aria-label="Reduce quantity">−</button>
+            <span id="qtyDisplay">1</span>
+            <button id="qtyPlus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn-add-bag" id="addToBagBtn">
+            <span>Add to Bag</span>
+            <span>•</span>
+            <span id="btnPricePreview">৳ 1,490</span>
+          </button>
+        </div>
+
+        <!-- Dispatch Info Card -->
+        <div class="dispatch-card">
+          <div class="dispatch-icon">📦</div>
+          <div class="dispatch-text">
+            <h6>Direct Dhaka Dispatch Desk</h6>
+            <p>Same-day dispatch for Dhaka orders placed before 3PM. 2-3 days nationwide. Easy 7-day size swap guarantee.</p>
+          </div>
+        </div>
+
+        <!-- Technical Accordions -->
+        <div class="tech-accordions">
+          <div class="accordion-item open">
+            <button class="accordion-trigger">
+              <span>01 / Engineering & Features</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <ul id="featuresList">
+                <!-- Injected dynamically -->
+              </ul>
+              <p id="productStory" style="font-size:12.5px; color:var(--mid-on-light); border-top:1px dashed var(--line-light); padding-top:10px; margin-top:10px;"></p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span>02 / Technical Specifications</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <table class="spec-table" id="specTable">
+                <!-- Injected dynamically -->
+              </table>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span>03 / Garment Care & Longevity</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <ul id="careList">
+                <!-- Injected dynamically -->
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span>04 / Delivery & Exchange Policy</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>• <strong>Dhaka City</strong>: ৳ 70 flat courier fee (Free on orders over ৳ 2,000). Delivered within 24 hours.</p>
+              <p style="margin-top:6px;">• <strong>Outside Dhaka</strong>: ৳ 130 via Steadfast Courier / Paperfly (2-3 business days).</p>
+              <p style="margin-top:6px;">• <strong>Exchanges</strong>: Unwashed, unworn gear with original tags can be swapped for size within 7 days in Dhaka.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="tape">
+  <div class="tape-track" id="tapeTrack"></div>
+</div>
+
+<!-- Related Gear Section -->
+<section class="related-section">
+  <div class="wrap">
+    <div class="related-head">
+      <div>
+        <p class="eyebrow" style="color:var(--mid-on-light);">PIIIVOT Matchup System</p>
+        <h2>Built To Pair With</h2>
+      </div>
+      <a href="index.html#shop" style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink);">View All Gear →</a>
+    </div>
+
+    <div class="related-grid" id="relatedGrid">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
+</section>
+
+<!-- Size Guide Modal -->
+<div class="modal-overlay" id="sizeGuideModal">
+  <div class="modal-box">
+    <button class="cart-close-btn" style="position:absolute; top:18px; right:18px; border-color:var(--line-light); color:var(--mid-on-light);" id="closeSizeGuideBtn">×</button>
+    <p class="eyebrow" style="color:var(--mid-on-light);">Fit Reference</p>
+    <h3 id="modalSizeTitle">Sizing & Measurement Guide</h3>
+    <p>All measurements are taken flat. If you are between sizes for combat gear, we recommend sizing up for wrestling/striking mobility.</p>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:18px;">
+      <table class="size-chart-table" id="sizeChartTable">
+        <!-- Injected dynamically -->
+      </table>
+    </div>
+
+    <div class="size-modal-note">
+      Need personal sizing advice? Message our Dhaka fight desk on WhatsApp: <a href="https://wa.me/8801403047993" target="_blank" style="color:var(--ink); font-weight:600; text-decoration:underline;">+880 1403-047993</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo-group" style="margin-bottom:14px;">
+          <span class="logo-mark" data-logo="dark"></span>
+          <span class="wordmark" style="font-size:15px;">PIIIVOT</span>
+        </div>
+        <p>Built to compete. Combat gear and training apparel, curated and checked in Dhaka.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Combat Sports</h5>
+        <a href="product.html?id=performance-hand-wraps">Hand Wraps</a>
+        <a href="product.html?id=combat-01-shorts">Combat Shorts</a>
+        <a href="product.html?id=combat-essentials">Combat Essentials</a>
+      </div>
+      <div class="footer-col">
+        <h5>Apparel</h5>
+        <a href="product.html?id=training-tee-01">Training Tees</a>
+        <a href="product.html?id=oversized-tee-01">Oversized Tees</a>
+        <a href="product.html?id=training-shorts-01">Training Shorts</a>
+      </div>
+      <div class="footer-col">
+        <h5>Piiivot</h5>
+        <a href="index.html#trust">About</a>
+        <a href="index.html#access">Contact</a>
+        <a href="https://instagram.com/_piiivot" target="_blank" rel="noopener">Instagram</a>
+        <a href="admin.html" style="color:var(--paper); opacity:0.6; font-size:11.5px; font-family:'IBM Plex Mono',monospace; margin-top:8px;">Admin Desk 🔒</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-meta">Rampura, Banasree · Dhaka, Bangladesh</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/_piiivot" target="_blank" rel="noopener">IG</a>
+        <a href="https://wa.me/8801403047993" target="_blank" rel="noopener">WA</a>
+        <a href="#" onclick="return false;">FB</a>
+        <a href="admin.html" title="Admin Portal" style="color:var(--mid); margin-left:8px;">[ADMIN]</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Shared Scripts -->
+<script src="js/products.js"></script>
+<script src="js/cms.js"></script>
+<script src="js/visual-builder.js"></script>
+<script src="js/cart.js"></script>
+
+<script>
+  // ---- Real Piiivot logo SVG ----
+  const LOGO_ARROW_PATH = "M49.75,137.09l28.96-45.49c-4.64-9.19-12.49-16.7-17.96-25.51h20.5c1.36,0,15.51,19.97,16.36,21.66.6,1.18,1.38,2.18.99,3.62l-28.84,45.72h-20ZM77.75,137.09c4.99-4.78,27.7-47,30.5-47h19.5l-30,47h-20ZM106.9,135.84l29.36-45.75h19.5l-39.01,61c-.76.52-10.15-13.4-9.84-15.25ZM136.24,180.08c-1.94.45-1.25-.56-1.75-1.25-2.78-3.88-11.93-16.37-13.25-19.81-1.57-4.06,6.84-13.15,9.02-16.93,1.62,1.31,4.11,9.59,6.52,7.52l42.97-66.53h-76.5c-2.52,0-10.84-14.59-13.5-17h121l-74.51,113.99Z";
+
+  function logoSVG(fillColor){
+    return `<svg class="logo-svg" viewBox="28 42 200 144" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <path d="${LOGO_ARROW_PATH}" fill="${fillColor}"/>
+    </svg>`;
+  }
+
+  document.querySelectorAll('[data-logo="dark"]').forEach(el => {
+    el.innerHTML = logoSVG('#f5f4ef');
+  });
+
+  // ---- Mobile Navigation Controls ----
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const closeMobileNavBtn = document.getElementById('closeMobileNavBtn');
+  const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+
+  function openMobileNav() {
+    mobileNavOverlay.classList.add('open');
+    mobileNavDrawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    mobileNavOverlay.classList.remove('open');
+    mobileNavDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileNav);
+  if (closeMobileNavBtn) closeMobileNavBtn.addEventListener('click', closeMobileNav);
+  if (mobileNavOverlay) mobileNavOverlay.addEventListener('click', closeMobileNav);
+
+  // ---- Tape Divider Builder ----
+  (function buildTape(){
+    const track = document.getElementById('tapeTrack');
+    if (!track) return;
+    let html = '';
+    for(let rep=0; rep<4; rep++){
+      html += '<div class="tape-seg">';
+      for(let i=0; i<=18; i++){
+        html += `<div class="tick ${i % 6 === 0 ? 'major' : 'minor'}"></div>`;
+      }
+      html += '</div>';
+      html += '<div class="tape-label">BUILT TO COMPETE · PIIIVOT DHAKA</div>';
+    }
+    track.innerHTML = html;
+  })();
+
+  // ---- Page State & Product Engine ----
+  let currentProduct = null;
+  let selectedColor = null;
+  let selectedSize = null;
+  let quantity = 1;
+
+  function getProductIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id') || 'combat-01-shorts';
+  }
+
+  function renderProduct(productId) {
+    const product = window.PIIIVOT_PRODUCTS ? window.PIIIVOT_PRODUCTS[productId] : null;
+    if (!product) {
+      window.location.href = 'index.html#shop';
+      return;
+    }
+    currentProduct = product;
+    selectedColor = product.colors && product.colors.length > 0 ? product.colors[0].name : 'Default';
+    selectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Standard';
+    quantity = 1;
+
+    // Update Title & Meta
+    document.title = `${product.name} — PIIIVOT Built to Compete`;
+
+    // Breadcrumbs & Eyebrow
+    document.getElementById('crumbCat').textContent = product.category.toUpperCase();
+    document.getElementById('crumbName').textContent = product.name.toUpperCase();
+    document.getElementById('productCategoryLabel').textContent = `${product.categoryLabel.toUpperCase()} // ${product.badge.toUpperCase()}`;
+    document.getElementById('productSku').textContent = product.sku;
+    document.getElementById('techOverlaySku').textContent = product.sku;
+
+    // Header & Price
+    document.getElementById('productBadge').textContent = product.badge;
+    document.getElementById('productTitle').textContent = product.name;
+    document.getElementById('productPrice').textContent = product.priceFormatted;
+    document.getElementById('btnPricePreview').textContent = product.priceFormatted;
+    document.getElementById('productDesc').textContent = product.shortDesc;
+    document.getElementById('productGraphicText').textContent = product.name.replace(/ PIIIVOT/gi, '').toUpperCase();
+
+    // Features & Story
+    const featuresList = document.getElementById('featuresList');
+    featuresList.innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+    document.getElementById('productStory').textContent = product.story;
+
+    // Specs Table
+    const specTable = document.getElementById('specTable');
+    specTable.innerHTML = Object.entries(product.specs).map(([k, v]) => `
+      <tr>
+        <td>${k}</td>
+        <td>${v}</td>
+      </tr>
+    `).join('');
+
+    // Care List
+    const careList = document.getElementById('careList');
+    careList.innerHTML = product.care.map(c => `<li>${c}</li>`).join('');
+
+    // Render Color Options
+    const colorBlock = document.getElementById('colorBlock');
+    const colorSwatches = document.getElementById('colorSwatches');
+    if (product.colors && product.colors.length > 0) {
+      colorBlock.style.display = 'block';
+      document.getElementById('selectedColorName').textContent = selectedColor;
+      colorSwatches.innerHTML = product.colors.map((c, idx) => `
+        <button class="color-chip ${idx === 0 ? 'active' : ''}" onclick="selectColor('${c.name}', this)">
+          <span class="color-dot" style="background:${c.hex};"></span>
+          <span>${c.name}</span>
+        </button>
+      `).join('');
+    } else {
+      colorBlock.style.display = 'none';
+    }
+
+    // Render Size Options
+    const sizeGrid = document.getElementById('sizeGrid');
+    document.getElementById('selectedSizeName').textContent = selectedSize;
+    sizeGrid.innerHTML = product.sizes.map((s, idx) => `
+      <button class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</button>
+    `).join('');
+
+    // Render Gallery Views
+    const thumbsContainer = document.getElementById('galleryThumbs');
+    thumbsContainer.innerHTML = product.views.map((v, idx) => `
+      <button class="thumb-btn ${idx === 0 ? 'active' : ''}" onclick="selectView('${v.tag}', '${v.label}', this)">
+        <span class="thumb-tag">${v.tag}</span>
+        <span class="thumb-label">${v.label}</span>
+      </button>
+    `).join('');
+    selectView(product.views[0].tag, product.views[0].label, thumbsContainer.firstElementChild);
+
+    // Render Sizing Modal Table
+    renderSizeModal(product);
+
+    // Render Related Products
+    renderRelated(product);
+  }
+
+  function selectColor(colorName, btn) {
+    selectedColor = colorName;
+    document.getElementById('selectedColorName').textContent = colorName;
+    document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  function selectSize(sizeName, btn) {
+    selectedSize = sizeName;
+    document.getElementById('selectedSizeName').textContent = sizeName;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  function selectView(tag, label, btn) {
+    document.getElementById('visualAngleTag').textContent = `${tag} // VIEW`;
+    document.getElementById('productGraphicSub').textContent = `PIIIVOT · ${label.toUpperCase()}`;
+    document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  function renderSizeModal(product) {
+    const modalTitle = document.getElementById('modalSizeTitle');
+    const table = document.getElementById('sizeChartTable');
+    if (!product.sizeGuide) return;
+
+    modalTitle.textContent = `${product.name} Sizing Guide (${product.sizeGuide.unit})`;
+    let thead = '<tr>' + product.sizeGuide.headers.map(h => `<th>${h}</th>`).join('') + '</tr>';
+    let tbody = product.sizeGuide.rows.map(row => '<tr>' + row.map(c => `<td>${c}</td>`).join('') + '</tr>').join('');
+    table.innerHTML = thead + tbody;
+  }
+
+  function renderRelated(product) {
+    const grid = document.getElementById('relatedGrid');
+    const allProducts = Object.values(window.PIIIVOT_PRODUCTS || {});
+    const related = allProducts.filter(p => p.id !== product.id).slice(0, 3);
+
+    grid.innerHTML = related.map(p => `
+      <article class="related-card">
+        <a href="product.html?id=${p.id}" class="related-visual">
+          <div class="related-code">${p.name.replace(/ PIIIVOT/gi, '').substring(0, 10).toUpperCase()}</div>
+        </a>
+        <div class="related-body">
+          <span class="related-tag">${p.categoryLabel}</span>
+          <h4><a href="product.html?id=${p.id}">${p.name}</a></h4>
+          <p style="color:var(--mid-on-light); font-size:12.5px; margin-top:4px;">${p.shortDesc.substring(0, 75)}...</p>
+          <div class="related-foot">
+            <strong>${p.priceFormatted}</strong>
+            <a href="product.html?id=${p.id}" style="text-decoration:underline;">Inspect →</a>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  // ---- Quantity Stepper Handlers ----
+  document.getElementById('qtyMinus').addEventListener('click', () => {
+    if (quantity > 1) {
+      quantity--;
+      document.getElementById('qtyDisplay').textContent = quantity;
+      updateBtnPrice();
+    }
+  });
+
+  document.getElementById('qtyPlus').addEventListener('click', () => {
+    quantity++;
+    document.getElementById('qtyDisplay').textContent = quantity;
+    updateBtnPrice();
+  });
+
+  function updateBtnPrice() {
+    if (!currentProduct) return;
+    const total = (currentProduct.price * quantity).toLocaleString();
+    document.getElementById('btnPricePreview').textContent = `৳ ${total}`;
+  }
+
+  // ---- Add To Bag Trigger ----
+  document.getElementById('addToBagBtn').addEventListener('click', () => {
+    if (!currentProduct || !window.PIIIVOT_CART) return;
+    window.PIIIVOT_CART.addItem(currentProduct.id, selectedSize, selectedColor, quantity);
+  });
+
+  // ---- Accordion Toggles ----
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accordion-item');
+      item.classList.toggle('open');
+    });
+  });
+
+  // ---- Size Guide Modal Open/Close ----
+  const sizeModal = document.getElementById('sizeGuideModal');
+  document.getElementById('openSizeGuideBtn').addEventListener('click', () => {
+    sizeModal.classList.add('open');
+  });
+  document.getElementById('closeSizeGuideBtn').addEventListener('click', () => {
+    sizeModal.classList.remove('open');
+  });
+  sizeModal.addEventListener('click', (e) => {
+    if (e.target === sizeModal) sizeModal.classList.remove('open');
+  });
+
+  // ---- Initialize Page ----
+  document.addEventListener('DOMContentLoaded', () => {
+    const id = getProductIdFromUrl();
+    renderProduct(id);
+  });
+</script>
+
+</body>
+</html>
