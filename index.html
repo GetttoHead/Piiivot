@@ -70,86 +70,68 @@
   .mobile-nav-links a span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid); }
   .mobile-nav-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--mid); }
 
-  /* ---------- HERO (LIGHT / WARM OFF-WHITE, ECOMMERCE LAYOUT) ---------- */
-  .hero {
-    position: relative;
-    padding: clamp(60px, 10vw, 100px) 0 clamp(50px, 8vw, 85px);
-    overflow: hidden;
-    background: repeating-linear-gradient(115deg, rgba(10, 10, 10, .025) 0 2px, transparent 2px 26px), var(--paper);
-    color: var(--ink);
-    border-bottom: 1px solid var(--line-light);
+  /* ---------- HERO (ECOMMERCE, SLIDING GEAR CARDS) ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:clamp(60px,10vw,100px) 0 clamp(50px,8vw,85px);
+    background:repeating-linear-gradient(115deg, rgba(10,10,10,.025) 0 2px, transparent 2px 26px), var(--paper);
+    color:var(--ink);
+    border-bottom:1px solid var(--line-light);
   }
-  .hero-inner {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 56px;
-    align-items: center;
+  .hero-logo-bg{
+    position:absolute; z-index:0; pointer-events:none; user-select:none;
+    width:56%; max-width:640px; left:-6%; top:50%; transform:translateY(-50%); opacity:.09;
   }
-  .hero .eyebrow { color: var(--mid-on-light); }
-  .hero h1 { font-size: clamp(38px, 7vw, 76px); margin-top: 16px; word-break: break-word; color: var(--ink); }
-  .hero p { max-width: 520px; margin-top: 20px; color: var(--mid-on-light); font-size: clamp(15px, 2vw, 17px); line-height: 1.55; }
-  .hero-ctas { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
-  .hero-features { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
-  .hero-feat-tag {
-    font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--mid-on-light); background: rgba(10, 10, 10, 0.04); border: 1px solid rgba(10, 10, 10, 0.09);
-    padding: 5px 10px; border-radius: 2px; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .hero-feat-tag::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 6px rgba(34, 197, 94, 0.6); }
+  .hero-logo-bg svg{width:100%; height:100%; display:block;}
+  .hero-inner{position:relative; z-index:1; display:grid; grid-template-columns:1fr 1.1fr; gap:40px; align-items:center;}
 
-  /* Quick shop-by-category chips */
-  .hero-quicklinks { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
-  .hero-quicklink {
-    font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase;
-    color: var(--mid-on-light); border: 1px solid var(--line-light); padding: 8px 14px; border-radius: 20px;
-    transition: all .2s ease;
-  }
-  .hero-quicklink:hover { border-color: var(--ink); color: var(--ink); }
+  .hero .eyebrow{color:var(--mid-on-light);}
+  .hero h1{font-size:clamp(38px,6.5vw,72px); margin-top:16px; color:var(--ink);}
+  .hero p{max-width:480px; margin-top:18px; color:var(--mid-on-light); font-size:16px; line-height:1.55;}
+  .hero-ctas{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
 
-  .btn-primary, .btn-outline {
-    font-family: 'IBM Plex Mono', monospace; font-size: clamp(11.5px, 1.5vw, 13px); letter-spacing: .07em; text-transform: uppercase;
-    padding: 14px clamp(18px, 3vw, 24px); border-radius: var(--radius); display: inline-flex; align-items: center;
-    justify-content: center; gap: 10px; transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
-    text-align: center;
+  /* ---- Sliding card stage ---- */
+  .stage{position:relative; height:520px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:40px;}
+  .stage-badge{
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    background:var(--ink); color:var(--paper); padding:6px 14px; border-radius:20px; z-index:20;
   }
-  .btn-primary { background: var(--ink); color: var(--paper); font-weight: 600; }
-  .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
-  .btn-outline { border: 1px solid var(--line-light); color: var(--ink); }
-  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .card-track{position:relative; width:100%; height:100%;}
+  .gear-card{
+    position:absolute; left:50%; bottom:64px; width:260px; height:310px;
+    border-radius:16px; overflow:hidden; cursor:pointer;
+    transition:transform .55s cubic-bezier(.19,1,.22,1), opacity .55s ease, height .55s cubic-bezier(.19,1,.22,1), box-shadow .55s ease;
+  }
+  .gear-card .bg{position:absolute; inset:0;}
+  .gear-card .icon{position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:0 14px;}
+  .gear-card .icon svg{width:100%; height:88%;}
+  .gear-card .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.55) 32%, transparent 62%);}
+  .gear-card .brand-stamp{position:absolute; top:16px; right:16px; width:26px; height:26px; z-index:5; opacity:.55;}
+  .gear-card .brand-stamp svg{width:100%; height:100%;}
+  .gear-card .text{position:absolute; left:20px; right:20px; bottom:20px; color:var(--paper);}
+  .gear-card .tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#c8c5ba; display:block; margin-bottom:7px;}
+  .gear-card .title{font-family:'Anton',sans-serif; text-transform:uppercase; font-size:22px; line-height:1.08; margin-bottom:7px;}
+  .gear-card .desc{font-size:12.5px; color:#b8b5aa; line-height:1.4;}
 
-  /* ---- Product showcase stage ---- */
-  .hero-shopcase { position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; }
-  .hero-ring { position: absolute; width: 300px; height: 300px; border: 1px dashed var(--line-light); border-radius: 50%; pointer-events: none; }
-  .hero-stage-badge {
-    position: absolute; top: 0; left: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em;
-    text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 7px 14px; border-radius: 2px; z-index: 5;
-  }
-  .shop-card {
-    position: absolute; background: var(--paper); border: 1px solid var(--line-light); border-radius: 6px; padding: 20px;
-    width: 190px; box-shadow: 0 20px 40px rgba(10,10,10,.08); transition: transform .25s ease, box-shadow .25s ease;
-    display: block;
-  }
-  .shop-card:hover { transform: translateY(-6px); box-shadow: 0 28px 50px rgba(10,10,10,.14); }
-  .shop-card .sc-visual { aspect-ratio: 1/1; background: var(--paper-2); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--ink); }
-  .shop-card .sc-visual svg { width: 56%; height: 56%; }
-  .shop-card .sc-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--mid-on-light); margin-bottom: 6px; display: block; }
-  .shop-card h5 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 14px; color: var(--ink); margin-bottom: 8px; line-height: 1.15; }
-  .shop-card .sc-foot { display: flex; justify-content: space-between; align-items: center; }
-  .shop-card .sc-price { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink); font-weight: 600; }
-  .shop-card .sc-view { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--mid-on-light); }
-  .shop-card.card-front { top: 70px; left: 20px; z-index: 3; }
-  .shop-card.card-back { top: 0; right: 0; z-index: 2; opacity: .92; transform: scale(.92); }
-  .shop-card.card-back:hover { transform: scale(.95) translateY(-6px); }
-  .hero-badge-new {
-    position: absolute; top: -10px; right: -10px; background: var(--ink); color: var(--paper); font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px; letter-spacing: .08em; padding: 4px 9px; border-radius: 20px; z-index: 4;
-  }
+  .gear-card[data-pos="center"]{transform:translate(-50%,0) rotate(0deg) scale(1); height:390px; z-index:10; opacity:1; box-shadow:0 28px 54px rgba(10,10,10,.3);}
+  .gear-card[data-pos="left"]{transform:translate(-142%,0) rotate(-6deg) scale(.92); height:300px; z-index:5; opacity:.88; box-shadow:0 16px 30px rgba(10,10,10,.16);}
+  .gear-card[data-pos="right"]{transform:translate(42%,0) rotate(6deg) scale(.92); height:300px; z-index:5; opacity:.88; box-shadow:0 16px 30px rgba(10,10,10,.16);}
+  .gear-card[data-pos="farleft"]{transform:translate(-180%,0) rotate(-9deg) scale(.78); height:260px; z-index:1; opacity:0;}
+  .gear-card[data-pos="farright"]{transform:translate(80%,0) rotate(9deg) scale(.78); height:260px; z-index:1; opacity:0;}
 
-  .hero-watermark {
-    position: absolute; left: -50px; bottom: -50px; width: clamp(220px, 24vw, 340px); aspect-ratio: 200/144;
-    opacity: .05; z-index: 1; pointer-events: none; user-select: none;
+  .stage-nav{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:16px; z-index:20;}
+  .stage-arrow{width:34px; height:34px; border-radius:50%; border:1px solid var(--line-light); background:var(--paper); display:flex; align-items:center; justify-content:center; color:var(--ink); transition:all .2s ease;}
+  .stage-arrow:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .stage-dots{display:flex; gap:7px;}
+  .stage-dot{width:6px; height:6px; border-radius:50%; background:var(--line-light); transition:all .25s ease; cursor:pointer;}
+  .stage-dot.active{background:var(--ink); width:18px; border-radius:4px;}
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr; gap:40px;}
+    .stage{height:440px;}
+    .gear-card{width:210px;}
+    .hero-logo-bg{opacity:.06;}
   }
 
   /* ---------- CATEGORY SHOWCASE ---------- */
@@ -295,12 +277,6 @@
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .menu-btn { display: flex; }
-    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-    .hero-shopcase { min-height: auto; display: flex; gap: 16px; justify-content: flex-start; overflow-x: auto; padding: 34px 4px 10px; }
-    .hero-ring { display: none; }
-    .hero-stage-badge { position: static; display: inline-flex; margin-bottom: 14px; }
-    .shop-card { position: static; transform: none !important; width: 170px; flex-shrink: 0; }
-    .shop-card.card-back { opacity: 1; }
     .matchup-grid { grid-template-columns: 1fr; gap: 0; align-items: stretch; }
     .vs-badge { margin: -28px auto; top: 0; }
     .cat-panel.dark { border-right: 1px solid var(--line); border-bottom: none; }
@@ -424,52 +400,41 @@
 
 <!-- Hero Section -->
 <section class="hero" id="hero">
+  <div class="hero-logo-bg">
+    <svg viewBox="38 52 311 223" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linejoin="round">
+        <path d="M285.46,88.48l-81.02,123.99c-2.71,1.87-9.28-14.78-12.47-13.99-1.51.37-16.75,24.49-17.11,26-.26,1.06-.64,1.91.08,2.93l28.01,42.06L343.46,57.48H115.46l24.5,31h145.5Z"/>
+        <polygon points="78.96 189.48 135.14 103.97 99.96 57.48 61.46 57.48 97.26 105.82 43.46 189.48 78.96 189.48"/>
+        <path d="M240.46,101.48h-36.5l-55.36,84.75c-.43,3.19,14.94,22.77,17.37,27.25l74.49-112Z"/>
+        <path d="M95.66,187.18l-.2,2.29c12.1.99,24.01-2.15,36.04-.49l56.95-87.51h-36.5l-56.3,85.71Z"/>
+      </g>
+    </svg>
+  </div>
   <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <p class="eyebrow">Combat Sports &middot; Esports &amp; Training &mdash; Dhaka, Bangladesh</p>
+    <div>
+      <p class="eyebrow">Combat Sports · Esports &amp; Training — Dhaka, Bangladesh</p>
       <h1>Built to<br>compete.</h1>
-      <p>Performance gear for people who train, compete, and keep moving forward. Explore the first PIIIVOT drop &mdash; engineered for combat sports, athletic training, and high-output performance.</p>
+      <p>Performance gear for people who train, compete, and keep moving forward. Explore the first PIIIVOT drop — engineered for combat sports, athletic training, and high-output performance.</p>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#shop">Shop The First Drop &rarr;</a>
+        <a class="btn-primary" href="#shop">Shop The First Drop →</a>
         <a class="btn-outline" href="#about">Why PIIIVOT</a>
       </div>
-      <div class="hero-features">
-        <span class="hero-feat-tag">4-Way Stretch Fightwear</span>
-        <span class="hero-feat-tag">Dhaka Local Drop</span>
-        <span class="hero-feat-tag">Match Tested</span>
-      </div>
-      <div class="hero-quicklinks">
-        <a class="hero-quicklink" href="#combat">Combat Sports &rarr;</a>
-        <a class="hero-quicklink" href="#apparel">Apparel &rarr;</a>
-        <a class="hero-quicklink" href="#shop">All Gear &rarr;</a>
-      </div>
     </div>
 
-    <div class="hero-shopcase">
-      <span class="hero-ring" aria-hidden="true"></span>
-      <span class="hero-stage-badge">First Drop</span>
-
-      <a class="shop-card card-back" href="product.html?id=combat-01-shorts">
-        <div class="sc-visual">
-          <svg viewBox="0 0 200 200" fill="none"><path d="M70 60 L130 60 L145 150 L110 150 L100 110 L90 150 L55 150 Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="sc-tag">Combat</span>
-        <h5>Combat 01 Shorts</h5>
-        <div class="sc-foot"><span class="sc-price">&#2547; 1,490</span><span class="sc-view">View &rarr;</span></div>
-      </a>
-
-      <a class="shop-card card-front" href="product.html?id=hand-wraps-01">
-        <span class="hero-badge-new">New</span>
-        <div class="sc-visual">
-          <svg viewBox="0 0 200 200" fill="none"><path d="M100 40 C130 40 150 65 150 95 C150 125 128 150 100 150 C90 150 82 146 76 140" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M76 140 L60 150 L74 156 Z" fill="currentColor"/></svg>
-        </div>
-        <span class="sc-tag">Combat</span>
-        <h5>Performance Hand Wraps</h5>
-        <div class="sc-foot"><span class="sc-price">&#2547; 450</span><span class="sc-view">View &rarr;</span></div>
-      </a>
+    <div class="stage">
+      <span class="stage-badge">First Drop</span>
+      <div class="card-track" id="track"></div>
+      <div class="stage-nav">
+        <button class="stage-arrow" id="prevBtn" aria-label="Previous">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="stage-dots" id="dots"></div>
+        <button class="stage-arrow" id="nextBtn" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
-  <span class="hero-watermark" data-logo="light"></span>
 </section>
 
 <!-- Category Showcase (Interactive Matchup) -->
@@ -803,6 +768,114 @@
   document.querySelectorAll('.mob-link').forEach(link => {
     link.addEventListener('click', () => toggleMobileMenu(false));
   });
+</script>
+
+<script>
+(function(){
+  const GEAR = [
+    { tag:'Combat', title:'Performance Hand Wraps', desc:'180" semi-elastic, thumb loop + strap.',
+      bg:'linear-gradient(160deg, #55534d 0%, #201f1c 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f2f0e8"/><stop offset="55%" stop-color="#9c998e"/><stop offset="100%" stop-color="#3a3934"/>
+      </linearGradient></defs>
+      <path d="M40 200 C40 150 50 90 75 55 C85 42 95 48 92 62 L82 110 M82 110 C90 95 100 60 108 48 C116 38 128 44 124 58 L110 118 M110 118 C118 100 128 65 136 55 C144 46 154 52 150 65 L134 130 C170 120 176 150 158 172 L120 210 C100 226 68 224 52 210 C42 200 40 200 40 200Z" fill="url(#g1)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+    { tag:'Combat', title:'MMA Sparring Gloves', desc:'Open-palm foam padding, reinforced wrist wrap.',
+      bg:'linear-gradient(160deg, #4c4a45 0%, #1c1b19 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><radialGradient id="g2" cx="35%" cy="30%" r="80%">
+        <stop offset="0%" stop-color="#f0eee6"/><stop offset="55%" stop-color="#88857c"/><stop offset="100%" stop-color="#2c2b28"/>
+      </radialGradient></defs>
+      <path d="M70 150 C58 120 62 85 82 68 C90 61 98 68 95 78 L92 100 M92 100 C96 82 100 55 108 46 C116 38 126 44 123 56 L116 104 M116 104 C120 84 126 58 134 50 C142 42 152 48 149 60 L138 112 M138 112 C144 96 152 78 160 74 C170 69 178 78 174 90 L162 145 C156 178 128 202 96 200 C74 199 58 186 52 168Z" fill="url(#g2)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+    { tag:'Apparel', title:'Muay Thai Shorts', desc:'Satin-blend, side slits, full range of motion.',
+      bg:'linear-gradient(160deg, #524f49 0%, #1e1d1a 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#eeece3"/><stop offset="50%" stop-color="#7f7c72"/><stop offset="100%" stop-color="#28271f"/>
+      </linearGradient></defs>
+      <path d="M55 60 L145 60 L152 90 L128 90 L162 205 L118 205 L104 130 L96 130 L82 205 L38 205 L72 90 L48 90Z" fill="url(#g3)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+    { tag:'Combat', title:'Shin Instep Guards', desc:'Padded protection for sparring sessions.',
+      bg:'linear-gradient(160deg, #4f4d47 0%, #1c1b19 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f0eee6"/><stop offset="55%" stop-color="#8f8c82"/><stop offset="100%" stop-color="#302f2a"/>
+      </linearGradient></defs>
+      <path d="M92 40 C78 80 74 130 80 175 C82 195 100 210 120 206 C136 202 144 186 140 170 L124 70 C120 50 106 36 92 40Z" fill="url(#g4)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M78 175 C74 130 78 80 92 40" stroke="#0a0a0a" stroke-width="2" opacity=".4" fill="none"/></svg>` },
+    { tag:'Apparel', title:'Training Headgear', desc:'Full-face coverage, breathable padded shell.',
+      bg:'linear-gradient(160deg, #58564f 0%, #201f1c 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><radialGradient id="g5" cx="35%" cy="25%" r="85%">
+        <stop offset="0%" stop-color="#f2f0e8"/><stop offset="55%" stop-color="#98958a"/><stop offset="100%" stop-color="#302f2a"/>
+      </radialGradient></defs>
+      <path d="M55 130 C55 80 75 45 100 45 C125 45 145 80 145 130 L145 160 C145 175 133 186 118 186 L112 186 L112 150 L100 150 L100 190 L72 190 L72 150 L88 150 L88 186 L82 186 C67 186 55 175 55 160Z" fill="url(#g5)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+  ];
+
+  const track = document.getElementById('track');
+  const dotsEl = document.getElementById('dots');
+  let current = 0;
+
+  GEAR.forEach((g, i) => {
+    const card = document.createElement('div');
+    card.className = 'gear-card';
+    card.dataset.index = i;
+    card.innerHTML = `
+      <div class="bg" style="background:${g.bg}"></div>
+      <div class="icon">${g.icon}</div>
+      <div class="scrim"></div>
+      <div class="brand-stamp">
+        <svg viewBox="38 52 311 223"><g fill="none" stroke="#f5f4ef" stroke-width="5" stroke-linejoin="round">
+          <path d="M285.46,88.48l-81.02,123.99c-2.71,1.87-9.28-14.78-12.47-13.99-1.51.37-16.75,24.49-17.11,26-.26,1.06-.64,1.91.08,2.93l28.01,42.06L343.46,57.48H115.46l24.5,31h145.5Z"/>
+          <polygon points="78.96 189.48 135.14 103.97 99.96 57.48 61.46 57.48 97.26 105.82 43.46 189.48 78.96 189.48"/>
+          <path d="M240.46,101.48h-36.5l-55.36,84.75c-.43,3.19,14.94,22.77,17.37,27.25l74.49-112Z"/>
+          <path d="M95.66,187.18l-.2,2.29c12.1.99,24.01-2.15,36.04-.49l56.95-87.51h-36.5l-56.3,85.71Z"/>
+        </g></svg>
+      </div>
+      <div class="text">
+        <span class="tag">${g.tag}</span>
+        <div class="title">${g.title}</div>
+        <div class="desc">${g.desc}</div>
+      </div>`;
+    card.addEventListener('click', () => { current = i; render(); });
+    track.appendChild(card);
+  });
+
+  GEAR.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'stage-dot';
+    dot.addEventListener('click', () => { current = i; render(); });
+    dotsEl.appendChild(dot);
+  });
+
+  function posFor(offset){
+    const n = GEAR.length;
+    const rel = ((offset % n) + n) % n;
+    if (rel === 0) return 'center';
+    if (rel === 1) return 'right';
+    if (rel === n - 1) return 'left';
+    if (rel === 2) return 'farright';
+    return 'farleft';
+  }
+
+  function render(){
+    document.querySelectorAll('.gear-card').forEach(card=>{
+      const i = parseInt(card.dataset.index, 10);
+      card.dataset.pos = posFor(i - current);
+    });
+    document.querySelectorAll('.stage-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', ()=>{ current=(current+1)%GEAR.length; render(); resetAuto(); });
+  document.getElementById('prevBtn').addEventListener('click', ()=>{ current=(current-1+GEAR.length)%GEAR.length; render(); resetAuto(); });
+
+  let autoTimer;
+  function startAuto(){ autoTimer = setInterval(()=>{ current=(current+1)%GEAR.length; render(); }, 4000); }
+  function resetAuto(){ clearInterval(autoTimer); startAuto(); }
+
+  render();
+  startAuto();
+
+  const stage = document.querySelector('.stage');
+  stage.addEventListener('mouseenter', ()=> clearInterval(autoTimer));
+  stage.addEventListener('mouseleave', startAuto);
+})();
 </script>
 
 <!-- Product Catalog & Cart only — CMS/visual-builder removed -->
