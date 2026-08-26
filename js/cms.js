@@ -262,16 +262,21 @@
       if (typeof document === 'undefined') return;
       const content = this.getContent();
 
-      // Hero Bindings
+      // Hero Bindings — use precise selectors to avoid collision between eyebrow/desc/h1
       if (content.hero) {
-        const eyebrowEl = document.querySelector('.hero .eyebrow');
+        // Eyebrow tag (monospace label above h1)
+        const eyebrowEl = document.querySelector('.hero .hero-eyebrow');
         if (eyebrowEl && content.hero.eyebrow) eyebrowEl.textContent = content.hero.eyebrow;
 
+        // Main headline — only set if the admin actually saved a title, and only via innerHTML to preserve <br>
         const h1El = document.querySelector('.hero h1');
-        if (h1El && content.hero.title) h1El.innerHTML = content.hero.title.replace(/\n/g, '<br>');
+        if (h1El && content.hero.title && content.hero.title.trim()) {
+          h1El.innerHTML = content.hero.title.replace(/\n/g, '<br>');
+        }
 
-        const pEl = document.querySelector('.hero p');
-        if (pEl && content.hero.subtitle) pEl.textContent = content.hero.subtitle;
+        // Description paragraph — must target .hero-desc specifically, NOT .hero p (which also matches eyebrow)
+        const descEl = document.querySelector('.hero .hero-desc');
+        if (descEl && content.hero.subtitle) descEl.textContent = content.hero.subtitle;
 
         const primaryBtn = document.querySelector('.hero .btn-primary');
         if (primaryBtn && content.hero.primaryBtnText) {

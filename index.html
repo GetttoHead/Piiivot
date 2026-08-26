@@ -471,6 +471,32 @@
     * { animation: none !important; transition: none !important; }
   }
 </style>
+<script>
+// ── PIIIVOT: Purge stale hero CMS content (uppercase/broken title from old admin saves) ──
+(function () {
+  try {
+    var CMS_KEY = 'piiivot_content';
+    var raw = localStorage.getItem(CMS_KEY);
+    if (raw) {
+      var data = JSON.parse(raw);
+      if (data && data.hero) {
+        var needsSave = false;
+        // If the saved title is in all-caps or starts with "BUILT" — it's stale from the v1 admin form
+        if (data.hero.title && (data.hero.title.toUpperCase() === data.hero.title || data.hero.title.trim().toUpperCase().startsWith('BUILT'))) {
+          delete data.hero.title;
+          needsSave = true;
+        }
+        // If eyebrow has uppercase collision text
+        if (data.hero.eyebrow && data.hero.eyebrow.toUpperCase().includes('PERFORMANCE GEAR')) {
+          delete data.hero.eyebrow;
+          needsSave = true;
+        }
+        if (needsSave) localStorage.setItem(CMS_KEY, JSON.stringify(data));
+      }
+    }
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 
