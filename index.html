@@ -367,6 +367,20 @@
 </script>
 </head>
 <body>
+<script>
+// Clear any stale CMS hero overrides from localStorage so the correct HTML text is shown
+(function(){
+  try {
+    var d = JSON.parse(localStorage.getItem('piiivot_content')||'{}');
+    if (d && d.hero) { delete d.hero.title; delete d.hero.eyebrow; delete d.hero.subtitle; localStorage.setItem('piiivot_content', JSON.stringify(d)); }
+    // Also wipe old visual-builder style overrides for the hero h1
+    var vs = JSON.parse(localStorage.getItem('pvt_styles')||'{}');
+    var changed = false;
+    Object.keys(vs).forEach(function(k){ if(k.indexOf('hero')>-1 && vs[k].textContent){ delete vs[k].textContent; changed=true; } });
+    if(changed) localStorage.setItem('pvt_styles', JSON.stringify(vs));
+  } catch(e){}
+})();
+</script>
 
 <!-- Header Navigation -->
 <header id="siteHeader">
@@ -770,11 +784,9 @@
   });
 </script>
 
-<!-- Integrated Engines (Catalog Database, Cart & Checkout, Storefront CMS Sync, Visual Studio Builder) -->
+<!-- Product Catalog & Cart only — CMS/visual-builder removed -->
 <script src="js/products.js"></script>
 <script src="js/cart.js"></script>
-<script src="js/cms.js"></script>
-<script src="js/visual-builder.js"></script>
 
 </body>
 </html>
