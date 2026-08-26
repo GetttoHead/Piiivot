@@ -97,12 +97,14 @@
     font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
     background:var(--ink); color:var(--paper); padding:6px 14px; border-radius:20px; z-index:20;
   }
-  .card-track{position:relative; width:100%; height:100%;}
+  .card-track{position:relative; width:100%; height:100%; user-select:none; -webkit-user-select:none; touch-action:pan-y; cursor:grab;}
+  .card-track.dragging{cursor:grabbing;}
   .gear-card{
     position:absolute; left:50%; bottom:64px; width:260px; height:310px;
-    border-radius:16px; overflow:hidden; cursor:pointer;
+    border-radius:16px; overflow:hidden; cursor:pointer; user-select:none; -webkit-user-select:none;
     transition:transform .55s cubic-bezier(.19,1,.22,1), opacity .55s ease, height .55s cubic-bezier(.19,1,.22,1), box-shadow .55s ease;
   }
+  .gear-card *{user-select:none; -webkit-user-select:none; -webkit-user-drag:none;}
   .gear-card .bg{position:absolute; inset:0;}
   .gear-card .icon{position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:0 14px;}
   .gear-card .icon svg{width:100%; height:88%;}
@@ -831,14 +833,22 @@
         <div class="title">${g.title}</div>
         <div class="desc">${g.desc}</div>
       </div>`;
-    card.addEventListener('click', () => { current = i; render(); });
+    card.addEventListener('click', (e) => {
+      if (hasMoved) {
+        e.preventDefault();
+        return;
+      }
+      current = i;
+      render();
+      resetAuto();
+    });
     track.appendChild(card);
   });
 
   GEAR.forEach((_, i) => {
     const dot = document.createElement('span');
     dot.className = 'stage-dot';
-    dot.addEventListener('click', () => { current = i; render(); });
+    dot.addEventListener('click', () => { current = i; render(); resetAuto(); });
     dotsEl.appendChild(dot);
   });
 
@@ -862,8 +872,80 @@
     });
   }
 
-  document.getElementById('nextBtn').addEventListener('click', ()=>{ current=(current+1)%GEAR.length; render(); resetAuto(); });
-  document.getElementById('prevBtn').addEventListener('click', ()=>{ current=(current-1+GEAR.length)%GEAR.length; render(); resetAuto(); });
+  // Next / Previous helpers
+  function nextCard() {
+    current = (current + 1) % GEAR.length;
+    render();
+    resetAuto();
+  }
+  function prevCard() {
+    current = (current - 1 + GEAR.length) % GEAR.length;
+    render();
+    resetAuto();
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', nextCard);
+  document.getElementById('prevBtn').addEventListener('click', prevCard);
+
+  // ---- Swipe / Drag Engine (Mobile Touch & PC Mouse) ----
+  let startX = 0;
+  let startY = 0;
+  let isDragging = false;
+  let hasMoved = false;
+
+  function onDragStart(e) {
+    isDragging = true;
+    hasMoved = false;
+    startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    track.classList.add('dragging');
+  }
+
+  function onDragMove(e) {
+    if (!isDragging) return;
+    const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    const diffX = currentX - startX;
+    const diffY = currentY - startY;
+
+    if (Math.abs(diffX) > 8) {
+      hasMoved = true;
+      if (Math.abs(diffX) > Math.abs(diffY) && e.cancelable && e.type.includes('touch')) {
+        e.preventDefault(); // prevent vertical page bounce while swiping horizontally
+      }
+    }
+  }
+
+  function onDragEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('dragging');
+
+    const endX = e.type.includes('touch') 
+      ? (e.changedTouches && e.changedTouches.length ? e.changedTouches[0].clientX : startX) 
+      : e.clientX;
+    const diffX = endX - startX;
+    const swipeThreshold = 40; // minimum drag distance in pixels
+
+    if (diffX < -swipeThreshold) {
+      nextCard(); // Swiped left -> Next card
+    } else if (diffX > swipeThreshold) {
+      prevCard(); // Swiped right -> Previous card
+    }
+
+    setTimeout(() => { hasMoved = false; }, 50);
+  }
+
+  // Touch Events (Mobile / Tablet)
+  track.addEventListener('touchstart', onDragStart, { passive: true });
+  track.addEventListener('touchmove', onDragMove, { passive: false });
+  track.addEventListener('touchend', onDragEnd);
+  track.addEventListener('touchcancel', onDragEnd);
+
+  // Mouse Drag Events (Desktop PC)
+  track.addEventListener('mousedown', onDragStart);
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('mouseup', onDragEnd);
 
   let autoTimer;
   function startAuto(){ autoTimer = setInterval(()=>{ current=(current+1)%GEAR.length; render(); }, 4000); }
