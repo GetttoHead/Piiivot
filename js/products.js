@@ -1,23 +1,85 @@
 /**
- * PIIIVOT Product Catalog Data
+ * PIIIVOT Catalog & Store Architecture
+ * Centralized Product, Category, and Collection Data Model
  * Brand: PIIIVOT — Built to Compete (Dhaka, Bangladesh)
  */
 
+// Category Definitions
+const PIIIVOT_CATEGORIES = {
+  all: {
+    id: "all",
+    name: "All Gear",
+    slug: "all",
+    title: "Complete Training & Combat Gear",
+    description: "Engineered combat fightwear, minimalist apparel, and training essentials built for high-output performance."
+  },
+  combat: {
+    id: "combat",
+    name: "Combat",
+    slug: "combat",
+    title: "Combat Sports & Fightwear",
+    description: "MMA shorts, sparring gloves, 180\" Mexican hand wraps, and strike-ready gear match-tested in Dhaka."
+  },
+  training: {
+    id: "training",
+    name: "Training",
+    slug: "training",
+    title: "Technical Training Essentials",
+    description: "Versatile shorts, wraps, instep guards, and conditioning gear built to withstand relentless gym sessions."
+  },
+  apparel: {
+    id: "apparel",
+    name: "Apparel",
+    slug: "apparel",
+    title: "Performance Athletic Apparel",
+    description: "Heavyweight 220–260 GSM tees, oversized silhouettes, and mobility wear designed for athlete lifestyles."
+  }
+};
+
+// Collection / Drop Definitions
+const PIIIVOT_COLLECTIONS = {
+  "drop-01": {
+    id: "drop-01",
+    slug: "drop-01",
+    name: "Drop 01 // Built to Compete",
+    badge: "First Drop",
+    releaseYear: "2026",
+    description: "The inaugural PIIIVOT release engineered around core combat requirements and heavyweight gym wear."
+  },
+  "core-combat": {
+    id: "core-combat",
+    slug: "core-combat",
+    name: "Core Combat Series",
+    badge: "Core Spec",
+    releaseYear: "2026",
+    description: "Essential fightwear and hand protection crafted for daily rounds on the mat and bags."
+  }
+};
+
+// Comprehensive Product Catalog
 const PIIIVOT_PRODUCTS = {
   "combat-01-shorts": {
     id: "combat-01-shorts",
+    slug: "combat-01-shorts",
     sku: "PVT-CMB-SH01",
     name: "Combat 01 Shorts",
     category: "combat",
     categoryLabel: "Combat Fightwear",
+    collection: "drop-01",
+    collectionLabel: "Drop 01",
     badge: "First Drop",
     tag: "Combat",
     tagType: "outline",
     price: 1490,
+    compareAtPrice: 1790,
     priceFormatted: "৳ 1,490",
+    compareAtFormatted: "৳ 1,790",
+    featured: true,
+    new: false,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
-    shortDesc: "Minimal fightwear silhouette with full-mobility construction engineered for striking, grappling, and intense mat rounds.",
+    shortDesc: "Minimal fightwear silhouette with full-mobility 4-way stretch construction engineered for striking, grappling, and intense mat rounds.",
     story: "Engineered in Dhaka for combat practitioners who value zero-interference performance over flashy gimmicks. The Combat 01 Shorts combine a 4-way stretch micro-weave body with reinforced side-split geometry to ensure unrestricted high kicks and explosive takedowns.",
     features: [
       "Deep split side-seams with bar-tack reinforcement for maximal hip rotation",
@@ -39,6 +101,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Onyx Black", hex: "#0a0a0a", code: "BLK" },
       { name: "Chalk White", hex: "#f5f4ef", code: "WHT" }
     ],
+    tags: ["shorts", "combat", "fightwear", "mma", "bjj", "muay thai", "drop-01", "featured"],
     sizeGuide: {
       unit: "Inches",
       headers: ["Size", "Waist (In)", "Length (In)", "Inseam (In)", "Weight Rec. (KG)"],
@@ -66,16 +129,24 @@ const PIIIVOT_PRODUCTS = {
 
   "training-tee-01": {
     id: "training-tee-01",
+    slug: "training-tee-01",
     sku: "PVT-APP-TEE01",
     name: "Training Tee 01",
     category: "apparel",
     categoryLabel: "Performance Apparel",
+    collection: "drop-01",
+    collectionLabel: "Drop 01",
     badge: "New",
     tag: "Apparel",
     tagType: "solid",
     price: 990,
+    compareAtPrice: null,
     priceFormatted: "৳ 990",
+    compareAtFormatted: null,
+    featured: true,
+    new: true,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
     shortDesc: "Clean jersey-inspired training tee with a relaxed performance fit built from 220 GSM combed compact cotton.",
     story: "Designed to bridge intense strength sessions and off-duty street presence. The Training Tee 01 uses high-density combed cotton with an engineered drop-shoulder pattern that contours the upper torso while draping cleanly at the waist.",
@@ -100,6 +171,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Bone Raw Paper", hex: "#e9e7df", code: "BNE" },
       { name: "Dark Olive", hex: "#2c2f29", code: "OLV" }
     ],
+    tags: ["tee", "tshirt", "apparel", "training", "cotton", "heavyweight", "drop-01", "featured"],
     sizeGuide: {
       unit: "Inches",
       headers: ["Size", "Chest (In)", "Length (In)", "Shoulder (In)", "Sleeve (In)"],
@@ -127,16 +199,24 @@ const PIIIVOT_PRODUCTS = {
 
   "performance-hand-wraps": {
     id: "performance-hand-wraps",
+    slug: "performance-hand-wraps",
     sku: "PVT-CMB-WRP01",
     name: "Performance Hand Wraps",
     category: "combat",
     categoryLabel: "Combat Essentials",
+    collection: "core-combat",
+    collectionLabel: "Core Combat",
     badge: "Essential",
     tag: "Combat",
     tagType: "outline",
     price: 450,
+    compareAtPrice: 550,
     priceFormatted: "৳ 450",
+    compareAtFormatted: "৳ 550",
+    featured: true,
+    new: false,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
     shortDesc: "180\" Mexican-style semi-elastic cotton-blend training wraps with secure thumb loop and heavy-duty 2\" wrist strap.",
     story: "Wrist and knuckle support is non-negotiable. PIIIVOT Performance Hand Wraps deliver 4.5 meters (180 inches) of custom tension, blending soft breathable cotton with elastic fibers that mold snugly around carpals and metacarpals without cutting off blood circulation.",
@@ -161,6 +241,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Combat Red", hex: "#991b1b", code: "RED" },
       { name: "Paper Off-White", hex: "#f5f4ef", code: "WHT" }
     ],
+    tags: ["wraps", "hand wraps", "boxing", "muay thai", "combat", "protection", "featured"],
     sizeGuide: {
       unit: "Specs",
       headers: ["Specification", "Value", "Standard"],
@@ -186,18 +267,26 @@ const PIIIVOT_PRODUCTS = {
 
   "training-shorts-01": {
     id: "training-shorts-01",
+    slug: "training-shorts-01",
     sku: "PVT-CMB-SH02",
     name: "Training Shorts 01",
-    category: "combat",
+    category: "training",
     categoryLabel: "Hybrid Performance",
+    collection: "drop-01",
+    collectionLabel: "Drop 01",
     badge: "Versatile",
-    tag: "Combat",
+    tag: "Training",
     tagType: "outline",
     price: 1190,
+    compareAtPrice: null,
     priceFormatted: "৳ 1,190",
+    compareAtFormatted: null,
+    featured: false,
+    new: false,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
-    shortDesc: "Lightweight ripstop training shorts designed for striking, grappling, lifting, and conditioning.",
+    shortDesc: "Lightweight ripstop training shorts designed for striking, grappling, lifting, and high-intensity conditioning.",
     story: "Built as the do-everything workhorse for athletes who jump straight from pad work to barbell complexes. Engineered with an ultralight stretch ripstop outer and dual stealth zippered pockets that stay completely flush during sparring.",
     features: [
       "Ultralight ripstop shell with water-repellent and sweat-shedding finish",
@@ -218,6 +307,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Matte Black", hex: "#121212", code: "BLK" },
       { name: "Charcoal Grey", hex: "#383633", code: "CHR" }
     ],
+    tags: ["shorts", "training", "gym", "hybrid", "conditioning"],
     sizeGuide: {
       unit: "Inches",
       headers: ["Size", "Waist (In)", "Length (In)", "Inseam (In)", "Hip (In)"],
@@ -244,16 +334,24 @@ const PIIIVOT_PRODUCTS = {
 
   "oversized-tee-01": {
     id: "oversized-tee-01",
+    slug: "oversized-tee-01",
     sku: "PVT-APP-TEE02",
     name: "Oversized Tee 01",
     category: "apparel",
     categoryLabel: "Heavyweight Street / Gym",
+    collection: "drop-01",
+    collectionLabel: "Drop 01",
     badge: "Heavyweight",
     tag: "Apparel",
     tagType: "solid",
     price: 1090,
+    compareAtPrice: 1290,
     priceFormatted: "৳ 1,090",
+    compareAtFormatted: "৳ 1,290",
+    featured: false,
+    new: true,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
     shortDesc: "Minimal heavyweight silhouette with substantial 260 GSM French Terry structure for training days and off-duty wear.",
     story: "Substantial, architectural, and built to hold its structured silhouette across relentless wear. The Oversized Tee 01 utilizes heavy 260 GSM cotton French Terry with extended sleeve drop and clean raw-look proportions designed around combat aesthetics.",
@@ -276,6 +374,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Chalk Off-White", hex: "#f2f0e8", code: "CHK" },
       { name: "Jet Black", hex: "#080808", code: "JBK" }
     ],
+    tags: ["tee", "oversized", "french terry", "streetwear", "apparel", "heavyweight"],
     sizeGuide: {
       unit: "Inches",
       headers: ["Size", "Chest Width (In)", "Length (In)", "Shoulder Drop (In)"],
@@ -302,16 +401,24 @@ const PIIIVOT_PRODUCTS = {
 
   "combat-essentials": {
     id: "combat-essentials",
+    slug: "combat-essentials",
     sku: "PVT-KIT-ESS01",
     name: "Combat Essentials Bundle",
     category: "combat",
     categoryLabel: "Training Kit Drop",
+    collection: "drop-01",
+    collectionLabel: "Drop 01",
     badge: "Drop Bundle",
     tag: "Bundle",
     tagType: "dashed",
     price: 2450,
+    compareAtPrice: 2930,
     priceFormatted: "৳ 2,450",
+    compareAtFormatted: "৳ 2,930",
+    featured: true,
+    new: false,
     inStock: true,
+    available: true,
     leadTime: "Immediate Dispatch · 24h in Dhaka",
     shortDesc: "A curated 3-piece training set featuring Combat 01 Shorts, Training Tee 01, and 180\" Performance Hand Wraps.",
     story: "Everything you need to step on the mats in unified PIIIVOT gear. This bundle includes our top-tier Combat 01 Shorts, a 220 GSM Training Tee, and Mexican-style Hand Wraps at a curated kit price.",
@@ -333,6 +440,7 @@ const PIIIVOT_PRODUCTS = {
       { name: "Stealth All-Black Kit", hex: "#0a0a0a", code: "BLK" },
       { name: "High-Contrast Dual Kit", hex: "#e9e7df", code: "HCT" }
     ],
+    tags: ["bundle", "combat", "set", "pack", "gift", "drop-01", "featured"],
     sizeGuide: {
       unit: "Kit Sizing",
       headers: ["Kit Size", "Shorts Size", "Tee Size", "Wraps Spec"],
@@ -357,7 +465,169 @@ const PIIIVOT_PRODUCTS = {
   }
 };
 
-// Export for browser script usage
+// Central Storefront Query & Utility Helper
+const PIIIVOT_CATALOG = {
+  getAll: function () {
+    return Object.values(PIIIVOT_PRODUCTS);
+  },
+
+  getById: function (id) {
+    return PIIIVOT_PRODUCTS[id] || Object.values(PIIIVOT_PRODUCTS).find(p => p.slug === id) || null;
+  },
+
+  getFeatured: function () {
+    return this.getAll().filter(p => p.featured === true);
+  },
+
+  getByCategory: function (catId) {
+    if (!catId || catId === 'all') return this.getAll();
+    return this.getAll().filter(p => p.category === catId.toLowerCase());
+  },
+
+  getByCollection: function (collectionId) {
+    if (!collectionId) return this.getAll();
+    return this.getAll().filter(p => p.collection === collectionId.toLowerCase());
+  },
+
+  getCategories: function () {
+    return Object.values(PIIIVOT_CATEGORIES);
+  },
+
+  getCollections: function () {
+    return Object.values(PIIIVOT_COLLECTIONS);
+  },
+
+  search: function (query) {
+    if (!query || !query.trim()) return [];
+    const q = query.toLowerCase().trim();
+    return this.getAll().filter(p => {
+      const nameMatch = p.name.toLowerCase().includes(q);
+      const catMatch = p.category.toLowerCase().includes(q) || (p.categoryLabel && p.categoryLabel.toLowerCase().includes(q));
+      const colMatch = p.collection && p.collection.toLowerCase().includes(q);
+      const skuMatch = p.sku.toLowerCase().includes(q);
+      const tagMatch = p.tags && p.tags.some(t => t.toLowerCase().includes(q));
+      const descMatch = p.shortDesc && p.shortDesc.toLowerCase().includes(q);
+      return nameMatch || catMatch || colMatch || skuMatch || tagMatch || descMatch;
+    });
+  },
+
+  getRelated: function (currentProduct, limit = 3) {
+    if (!currentProduct) return this.getFeatured().slice(0, limit);
+    const all = this.getAll().filter(p => p.id !== currentProduct.id);
+
+    // 1. Same collection first
+    const sameCollection = all.filter(p => p.collection === currentProduct.collection);
+    // 2. Same category second
+    const sameCategory = all.filter(p => p.category === currentProduct.category && !sameCollection.some(sc => sc.id === p.id));
+    // 3. Remainder
+    const others = all.filter(p => !sameCollection.some(sc => sc.id === p.id) && !sameCategory.some(sc => sc.id === p.id));
+
+    return [...sameCollection, ...sameCategory, ...others].slice(0, limit);
+  },
+
+  filterAndSort: function (options = {}) {
+    let list = this.getAll();
+
+    // Category filter
+    if (options.category && options.category !== 'all') {
+      list = list.filter(p => p.category === options.category);
+    }
+
+    // Collection filter
+    if (options.collection) {
+      list = list.filter(p => p.collection === options.collection);
+    }
+
+    // Size filter
+    if (options.sizes && options.sizes.length > 0) {
+      list = list.filter(p => p.sizes && p.sizes.some(s => options.sizes.includes(s)));
+    }
+
+    // Price range filter
+    if (options.priceRange) {
+      if (options.priceRange === 'under-500') {
+        list = list.filter(p => p.price < 500);
+      } else if (options.priceRange === '500-1000') {
+        list = list.filter(p => p.price >= 500 && p.price <= 1000);
+      } else if (options.priceRange === 'over-1000') {
+        list = list.filter(p => p.price > 1000);
+      }
+    }
+
+    // Availability filter
+    if (options.inStockOnly) {
+      list = list.filter(p => p.inStock && p.available);
+    }
+
+    // Search query filter
+    if (options.searchQuery && options.searchQuery.trim()) {
+      const q = options.searchQuery.toLowerCase().trim();
+      list = list.filter(p => 
+        p.name.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q)) ||
+        p.category.toLowerCase().includes(q)
+      );
+    }
+
+    // Sorting
+    const sort = options.sort || 'featured';
+    if (sort === 'price-low') {
+      list.sort((a, b) => a.price - b.price);
+    } else if (sort === 'price-high') {
+      list.sort((a, b) => b.price - a.price);
+    } else if (sort === 'newest') {
+      list.sort((a, b) => (b.new ? 1 : 0) - (a.new ? 1 : 0));
+    } else {
+      // featured default
+      list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    }
+
+    return list;
+  },
+
+  // Reusable Product Card HTML Builder
+  renderCardHTML: function (product, theme = 'light') {
+    const isDark = theme === 'dark';
+    const cleanGraphicName = product.name.replace(/ PIIIVOT/gi, '').substring(0, 12).toUpperCase();
+    const comparePriceHTML = product.compareAtFormatted 
+      ? `<span class="price-compare" style="text-decoration:line-through; font-size:12px; opacity:.5; margin-left:6px;">${product.compareAtFormatted}</span>` 
+      : '';
+    const badgeHTML = product.badge 
+      ? `<span class="product-badge">${product.badge}</span>` 
+      : '';
+
+    return `
+      <article class="product-card" data-category="${product.category}" data-product-id="${product.id}">
+        <a href="product.html?id=${product.id}" class="product-visual" aria-label="${product.name}">
+          ${badgeHTML}
+          <div class="product-photo-placeholder">${cleanGraphicName}</div>
+        </a>
+        <div class="product-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="product-tag ${product.tagType || 'outline'}">${product.tag || product.categoryLabel}</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; opacity:.6;">${product.sku}</span>
+          </div>
+          <h4><a href="product.html?id=${product.id}">${product.name}</a></h4>
+          <p class="desc">${product.shortDesc}</p>
+          <div class="product-foot">
+            <div class="price-wrap">
+              <span class="price">${product.priceFormatted}</span>
+              ${comparePriceHTML}
+            </div>
+            <a href="product.html?id=${product.id}" class="notify-btn" aria-label="View ${product.name}">
+              Inspect →
+            </a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+};
+
+// Global Browser Exports
 if (typeof window !== 'undefined') {
   window.PIIIVOT_PRODUCTS = PIIIVOT_PRODUCTS;
+  window.PIIIVOT_CATEGORIES = PIIIVOT_CATEGORIES;
+  window.PIIIVOT_COLLECTIONS = PIIIVOT_COLLECTIONS;
+  window.PIIIVOT_CATALOG = PIIIVOT_CATALOG;
 }

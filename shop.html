@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Shop All Gear — PIIIVOT Built to Compete</title>
+<meta name="description" content="Explore PIIIVOT technical combat sports fightwear, 4-way stretch shorts, 180-inch Mexican hand wraps, and heavyweight training apparel. Engineered in Dhaka.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --ink-2: #161615;
+    --ink-3: #1f1e1c;
+    --paper: #f5f4ef;
+    --paper-2: #e9e7df;
+    --mid: #98958a;
+    --mid-on-light: #68655d;
+    --line: #333230;
+    --line-light: #d7d4c9;
+    --radius: 2px;
+    --accent: #22c55e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { background: var(--paper); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; line-height: 1.5; overflow-x: hidden; min-width: 320px; }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  button { font-family: inherit; cursor: pointer; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 36px); width: 100%; }
+  .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--mid-on-light); }
+  h1, h2, h3, h4 { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: .01em; line-height: .97; font-weight: 400; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* ---------- LOGO SVG ---------- */
+  .logo-svg { width: 100%; height: 100%; }
+  .logo-svg path { fill-rule: nonzero; }
+
+  /* ---------- HEADER / NAV ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--paper);
+    transition: background .3s ease;
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 16px clamp(16px, 4vw, 36px); max-width: 1240px; margin: 0 auto; gap: 24px; }
+  .logo-group { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+  .logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
+  .wordmark { font-family: 'Anton', sans-serif; font-size: 19px; letter-spacing: .08em; }
+  
+  .nav-links { display: flex; gap: 28px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; align-items: center; }
+  .nav-item { position: relative; }
+  .nav-link { color: var(--mid); transition: color .2s ease; padding: 6px 0; display: inline-flex; align-items: center; gap: 4px; }
+  .nav-link:hover, .nav-link.active { color: var(--paper); }
+  
+  /* Shop Dropdown Panel */
+  .nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    width: 220px;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 12px 0;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all .2s ease;
+    z-index: 100;
+  }
+  .nav-item:hover .nav-dropdown, .nav-dropdown:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 18px;
+    font-size: 11px;
+    color: var(--mid);
+    transition: all .2s ease;
+  }
+  .dropdown-link:hover {
+    background: var(--ink-3);
+    color: var(--paper);
+    padding-left: 22px;
+  }
+  .dropdown-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 6px 0;
+  }
+
+  .nav-tools { display: flex; align-items: center; gap: 16px; }
+  .icon-btn { background: none; border: none; color: var(--mid); position: relative; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 2px; transition: color .2s ease; }
+  .icon-btn:hover { color: var(--paper); }
+  .icon-btn svg { width: 20px; height: 20px; stroke-width: 1.6; }
+  .cart-badge { position: absolute; top: 1px; right: 1px; background: var(--paper); color: var(--ink); font-size: 9px; font-family: 'IBM Plex Mono', monospace; border-radius: 50%; width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--paper); width: 36px; height: 36px; font-size: 18px; align-items: center; justify-content: center; border-radius: var(--radius); }
+
+  /* Mobile Drawer Overlay */
+  .mobile-nav-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(10px); z-index: 900; opacity: 0; visibility: hidden; transition: all .3s ease; }
+  .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
+  .mobile-nav-drawer { position: fixed; top: 0; left: 0; bottom: 0; width: min(320px, 85vw); background: var(--ink-2); border-right: 1px solid var(--line); z-index: 901; display: flex; flex-direction: column; padding: 24px; transform: translateX(-100%); transition: transform .3s cubic-bezier(.16, 1, .3, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
+  .mobile-nav-drawer.open { transform: translateX(0); }
+  .mobile-nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; border-bottom: 1px solid var(--line); padding-bottom: 16px; color: var(--paper); }
+  .mobile-nav-links { display: flex; flex-direction: column; gap: 14px; }
+  .mobile-nav-links a { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; color: var(--paper); display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(245, 244, 239, 0.06); }
+  .mobile-nav-links a span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid); }
+  .mobile-nav-sublinks { display: flex; flex-direction: column; gap: 8px; padding: 6px 0 10px 14px; border-bottom: 1px solid rgba(245, 244, 239, 0.06); }
+  .mobile-nav-sublinks a { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mid); text-transform: uppercase; letter-spacing: .06em; border: none; padding: 4px 0; }
+  .mobile-nav-sublinks a:hover { color: var(--paper); }
+  .mobile-nav-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--mid); }
+
+  /* ---------- BREADCRUMB & TECH STRIP ---------- */
+  .tech-strip { border-bottom: 1px solid var(--line-light); background: var(--paper-2); padding: 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid-on-light); }
+  .tech-strip-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .breadcrumbs { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; text-transform: uppercase; }
+  .breadcrumbs a { color: var(--mid-on-light); transition: color .2s ease; }
+  .breadcrumbs a:hover { color: var(--ink); }
+  .breadcrumbs span { color: var(--ink); font-weight: 600; }
+  .status-tag { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 10.5px; font-weight: 600; text-transform: uppercase; }
+  .status-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); }
+
+  /* ---------- COLLECTION HERO / HEADER ---------- */
+  .collection-hero {
+    padding: clamp(40px, 6vw, 64px) 0 clamp(24px, 4vw, 36px);
+    border-bottom: 1px solid var(--line-light);
+    background: repeating-linear-gradient(115deg, rgba(10, 10, 10, .018) 0 2px, transparent 2px 26px), var(--paper);
+  }
+  .collection-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .collection-titles h1 {
+    font-size: clamp(34px, 5.5vw, 56px);
+    margin-top: 8px;
+    color: var(--ink);
+  }
+  .collection-titles p {
+    color: var(--mid-on-light);
+    font-size: clamp(14px, 1.8vw, 16px);
+    max-width: 540px;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .collection-count-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 16px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  /* ---------- CATEGORY QUICK TABS ---------- */
+  .category-tabs-bar {
+    border-bottom: 1px solid var(--line-light);
+    background: var(--paper);
+    padding: 12px 0;
+  }
+  .category-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 0;
+  }
+  .category-tabs::-webkit-scrollbar { display: none; }
+  .cat-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--line-light);
+    color: var(--mid-on-light);
+    background: none;
+    transition: all .2s ease;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .cat-tab:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .cat-tab.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- FILTER & SORT CONTROLS BAR ---------- */
+  .controls-bar {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-light);
+    background: var(--paper);
+  }
+  .controls-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .controls-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .filter-toggle-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 2px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: all .2s ease;
+  }
+  .filter-toggle-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Active Filter Tags */
+  .active-filter-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .active-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: rgba(10, 10, 10, 0.07);
+    border: 1px solid rgba(10, 10, 10, 0.15);
+    padding: 5px 10px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .active-tag:hover {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #b91c1c;
+  }
+  .clear-filters-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: #dc2626;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+
+  /* Sort Dropdown */
+  .sort-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--mid-on-light);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .sort-select {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 7px 12px;
+    border: 1px solid var(--line-light);
+    border-radius: 2px;
+    background: var(--paper);
+    color: var(--ink);
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .sort-select:focus { border-color: var(--ink); }
+
+  /* ---------- DESKTOP FILTER EXPANDABLE PANEL ---------- */
+  .filter-panel {
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line-light);
+    padding: 24px 0;
+    display: none;
+    transition: all .25s ease;
+  }
+  .filter-panel.open { display: block; }
+  .filter-grid-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .filter-group h4 {
+    font-family: 'Anton', sans-serif;
+    font-size: 15px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .filter-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--mid-on-light);
+    cursor: pointer;
+    user-select: none;
+  }
+  .filter-label input[type="checkbox"], .filter-label input[type="radio"] {
+    accent-color: var(--ink);
+    cursor: pointer;
+  }
+  .filter-label:hover { color: var(--ink); }
+
+  /* ---------- REUSABLE 4-COLUMN PRODUCT GRID ---------- */
+  .catalog-section {
+    padding: clamp(36px, 5vw, 64px) 0 clamp(60px, 8vw, 90px);
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+  }
+  .product-card {
+    background: var(--paper);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: background .2s ease, transform .2s ease;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .product-card:hover {
+    background: var(--paper-2);
+  }
+  .product-visual {
+    aspect-ratio: 1.15 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper-2);
+    position: relative;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+  }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    font-weight: 600;
+  }
+  .product-photo-placeholder {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    letter-spacing: .04em;
+    color: var(--ink);
+    opacity: .45;
+    text-align: center;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .product-card:hover .product-photo-placeholder {
+    opacity: .8;
+    transform: scale(1.04);
+  }
+  .product-body {
+    padding: 20px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .product-tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .product-tag.outline { border: 1px solid var(--mid-on-light); color: var(--ink); }
+  .product-tag.solid { background: var(--ink); color: var(--paper); }
+  .product-tag.dashed { border: 1px dashed var(--mid-on-light); color: var(--mid-on-light); }
+  
+  .product-card h4 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 6px;
+    letter-spacing: .01em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .product-card .desc {
+    color: var(--mid-on-light);
+    font-size: 12.5px;
+    margin-bottom: 16px;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 36px;
+  }
+  .product-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(10,10,10,0.06);
+  }
+  .price-wrap {
+    display: flex;
+    align-items: baseline;
+  }
+  .price {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .notify-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border: 1px solid var(--line-light);
+    background: none;
+    padding: 6px 10px;
+    border-radius: 2px;
+    transition: all .2s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .product-card:hover .notify-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ---------- EMPTY SEARCH / FILTER STATE ---------- */
+  .zero-state {
+    padding: 64px 20px;
+    text-align: center;
+    background: var(--paper-2);
+    border: 1px dashed var(--line-light);
+    border-radius: 4px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .zero-state.show { display: flex; }
+  .zero-state h3 { font-size: 28px; color: var(--ink); }
+  .zero-state p { color: var(--mid-on-light); font-size: 14px; max-width: 420px; }
+  .zero-state-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 24px;
+    border-radius: 2px;
+    font-weight: 600;
+    transition: all .2s ease;
+    border: none;
+  }
+  .zero-state-btn:hover { background: var(--accent); color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer { background: var(--ink); color: var(--paper); padding: clamp(60px, 8vw, 80px) 0 40px; border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+  .footer-col h5 { font-family: 'Anton', sans-serif; font-size: 18px; margin-bottom: 20px; letter-spacing: .04em; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: var(--mid); font-size: 13.5px; font-family: 'IBM Plex Mono', monospace; transition: color .2s ease; }
+  .footer-col a:hover { color: var(--paper); }
+  .footer-col p { color: var(--mid); font-size: 13.5px; max-width: 260px; line-height: 1.5; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .footer-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid); }
+  .footer-social { display: flex; gap: 16px; }
+  .footer-social a { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mid); text-transform: uppercase; letter-spacing: .06em; transition: color .2s ease; }
+  .footer-social a:hover { color: var(--paper); }
+
+  /* ---------- RESPONSIVE BREAKPOINTS ---------- */
+  @media (max-width: 1080px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .menu-btn { display: flex; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-body { padding: 14px 14px 18px; }
+    .product-card h4 { font-size: 16px; }
+    .product-card .desc { display: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<header id="siteHeader">
+  <nav>
+    <div class="logo-group">
+      <a href="index.html" class="logo-group" aria-label="PIIIVOT Home">
+        <span class="logo-mark" data-logo="dark"></span>
+        <span class="wordmark">PIIIVOT</span>
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="shop.html" class="nav-link active">Shop ▾</a>
+        <div class="nav-dropdown">
+          <a href="shop.html" class="dropdown-link">All Gear <span>→</span></a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?cat=combat" class="dropdown-link">Combat Fightwear <span>01</span></a>
+          <a href="shop.html?cat=training" class="dropdown-link">Training Gear <span>02</span></a>
+          <a href="shop.html?cat=apparel" class="dropdown-link">Performance Apparel <span>03</span></a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?collection=drop-01" class="dropdown-link" style="color:var(--accent);">First Drop // 2026 <span>★</span></a>
+        </div>
+      </div>
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#categories" class="nav-link">Systems</a>
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" aria-label="Search" id="searchBtn" data-search-trigger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Cart" id="cartBtn" onclick="if(window.PIIIVOT_CART) window.PIIIVOT_CART.open();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+      </button>
+      <button class="menu-btn" aria-label="Menu" id="mobileMenuTrigger">☰</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-nav-header">
+    <div class="logo-group">
+      <span class="logo-mark" data-logo="dark"></span>
+      <span class="wordmark">PIIIVOT</span>
+    </div>
+    <button id="mobileNavClose" style="background:none; border:none; color:var(--paper); font-size:24px;">×</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="shop.html" class="mob-link">Shop <span>01</span></a>
+    <div class="mobile-nav-sublinks">
+      <a href="shop.html">All Gear →</a>
+      <a href="shop.html?cat=combat">Combat Sports</a>
+      <a href="shop.html?cat=training">Training Gear</a>
+      <a href="shop.html?cat=apparel">Apparel</a>
+      <a href="shop.html?collection=drop-01" style="color:var(--accent);">First Drop</a>
+    </div>
+    <a href="index.html#about" class="mob-link">About <span>02</span></a>
+    <a href="index.html#trust" class="mob-link">Why PIIIVOT <span>03</span></a>
+    <a href="admin.html" class="mob-link" style="color:#22c55e;">Admin Portal <span>↗</span></a>
+  </div>
+  <div class="mobile-nav-footer">
+    <p>PIIIVOT Combat & Training</p>
+    <p style="margin-top:4px; font-size:10px; color:var(--mid);">Dhaka, Bangladesh</p>
+  </div>
+</div>
+
+<!-- Tech Strip & Breadcrumbs -->
+<div class="tech-strip">
+  <div class="wrap tech-strip-inner">
+    <div class="breadcrumbs" id="shopBreadcrumbs">
+      <a href="index.html">Home</a> / <a href="shop.html">Shop</a> / <span id="crumbActive">All Gear</span>
+    </div>
+    <div class="status-tag">
+      <span class="status-dot"></span>
+      <span>Stock Active · Dhaka Dispatch Ready</span>
+    </div>
+  </div>
+</div>
+
+<!-- Collection Hero -->
+<section class="collection-hero">
+  <div class="wrap collection-head">
+    <div class="collection-titles">
+      <p class="eyebrow" id="collectionEyebrow">The Catalog</p>
+      <h1 id="collectionTitle">All Gear</h1>
+      <p id="collectionDesc">Engineered combat fightwear, minimalist apparel, and training essentials built for high-output performance.</p>
+    </div>
+    <div class="collection-count-badge" id="productCountBadge">
+      6 PRODUCTS
+    </div>
+  </div>
+</section>
+
+<!-- Category Quick Tabs Bar -->
+<div class="category-tabs-bar">
+  <div class="wrap category-tabs" id="categoryTabsContainer">
+    <a href="shop.html" class="cat-tab active" data-cat="all">All Gear</a>
+    <a href="shop.html?cat=combat" class="cat-tab" data-cat="combat">Combat</a>
+    <a href="shop.html?cat=training" class="cat-tab" data-cat="training">Training</a>
+    <a href="shop.html?cat=apparel" class="cat-tab" data-cat="apparel">Apparel</a>
+    <a href="shop.html?collection=drop-01" class="cat-tab" data-collection="drop-01">Drop 01</a>
+  </div>
+</div>
+
+<!-- Controls Bar (Filter toggle + Active Tags + Sort) -->
+<div class="controls-bar">
+  <div class="wrap controls-inner">
+    <div class="controls-left">
+      <button class="filter-toggle-btn" id="filterToggleBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        <span>Filter Gear</span>
+      </button>
+      
+      <div class="active-filter-tags" id="activeFilterTags">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <div class="sort-wrap">
+      <label for="sortSelect">Sort By:</label>
+      <select id="sortSelect" class="sort-select">
+        <option value="featured" selected>Featured</option>
+        <option value="newest">Newest</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Expandable Filter Panel -->
+<div class="filter-panel" id="filterPanel">
+  <div class="wrap">
+    <div class="filter-grid-cols">
+      <!-- Size Filter -->
+      <div class="filter-group">
+        <h4>Size</h4>
+        <div class="filter-options">
+          <label class="filter-label"><input type="checkbox" name="sizeFilter" value="S"> S (Small)</label>
+          <label class="filter-label"><input type="checkbox" name="sizeFilter" value="M"> M (Medium)</label>
+          <label class="filter-label"><input type="checkbox" name="sizeFilter" value="L"> L (Large)</label>
+          <label class="filter-label"><input type="checkbox" name="sizeFilter" value="XL"> XL (Extra Large)</label>
+          <label class="filter-label"><input type="checkbox" name="sizeFilter" value="2XL"> 2XL</label>
+        </div>
+      </div>
+
+      <!-- Price Range Filter -->
+      <div class="filter-group">
+        <h4>Price</h4>
+        <div class="filter-options">
+          <label class="filter-label"><input type="radio" name="priceFilter" value="" checked> All Prices</label>
+          <label class="filter-label"><input type="radio" name="priceFilter" value="under-500"> Under ৳ 500</label>
+          <label class="filter-label"><input type="radio" name="priceFilter" value="500-1000"> ৳ 500 – ৳ 1,000</label>
+          <label class="filter-label"><input type="radio" name="priceFilter" value="over-1000"> ৳ 1,000+</label>
+        </div>
+      </div>
+
+      <!-- Availability Filter -->
+      <div class="filter-group">
+        <h4>Availability</h4>
+        <div class="filter-options">
+          <label class="filter-label"><input type="checkbox" id="inStockCheck" checked> In Stock Only</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Catalog Grid -->
+<section class="catalog-section">
+  <div class="wrap">
+    <div class="product-grid" id="shopProductGrid">
+      <!-- Reusable product cards rendered dynamically -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="zero-state" id="shopZeroState">
+      <h3>No Gear Found</h3>
+      <p>No products match your active filters or category selection. Try resetting filters to explore all available gear.</p>
+      <button class="zero-state-btn" id="resetFiltersBtn">Reset All Filters →</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo-group" style="margin-bottom:14px;">
+          <span class="logo-mark" data-logo="dark"></span>
+          <span class="wordmark">PIIIVOT</span>
+        </div>
+        <p>Built to compete. High-performance fightwear and training apparel engineered in Dhaka, Bangladesh.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="shop.html">All Gear</a></li>
+          <li><a href="shop.html?cat=combat">Combat Fightwear</a></li>
+          <li><a href="shop.html?cat=training">Training Gear</a></li>
+          <li><a href="shop.html?cat=apparel">Apparel</a></li>
+          <li><a href="shop.html?collection=drop-01">First Drop 2026</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Systems</h5>
+        <ul>
+          <li><a href="index.html#categories">Combat Sports</a></li>
+          <li><a href="index.html#categories">Athletic Training</a></li>
+          <li><a href="index.html#about">Manifesto</a></li>
+          <li><a href="index.html#trust">Why PIIIVOT</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="product.html?id=combat-01-shorts">Sizing Guide</a></li>
+          <li><a href="index.html#trust">Dhaka Delivery (24h)</a></li>
+          <li><a href="admin.html">Admin Portal ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-meta">© 2026 PIIIVOT. ALL RIGHTS RESERVED. DHAKA, BANGLADESH.</span>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Core Engines & Components -->
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+
+<script>
+  // ---- Logo SVG Injector ----
+  const LOGO_ARROW_PATH = "M49.75,137.09l28.96-45.49c-4.64-9.19-12.49-16.7-17.96-25.51h20.5c1.36,0,15.51,19.97,16.36,21.66.6,1.18,1.38,2.18.99,3.62l-28.84,45.72h-20ZM77.75,137.09c4.99-4.78,27.7-47,30.5-47h19.5l-30,47h-20ZM106.9,135.84l29.36-45.75h19.5l-39.01,61c-.76.52-10.15-13.4-9.84-15.25ZM136.24,180.08c-1.94.45-1.25-.56-1.75-1.25-2.78-3.88-11.93-16.37-13.25-19.81-1.57-4.06,6.84-13.15,9.02-16.93,1.62,1.31,4.11,9.59,6.52,7.52l42.97-66.53h-76.5c-2.52,0-10.84-14.59-13.5-17h121l-74.51,113.99Z";
+
+  function logoSVG(fillColor){
+    return `<svg class="logo-svg" viewBox="28 42 200 144" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <path d="${LOGO_ARROW_PATH}" fill="${fillColor}"/>
+    </svg>`;
+  }
+
+  document.querySelectorAll('[data-logo="dark"]').forEach(el => {
+    el.innerHTML = logoSVG('#f5f4ef');
+  });
+
+  // Mobile Drawer Toggle
+  const mobTrigger = document.getElementById('mobileMenuTrigger');
+  const mobClose = document.getElementById('mobileNavClose');
+  const mobOverlay = document.getElementById('mobileNavOverlay');
+  const mobDrawer = document.getElementById('mobileNavDrawer');
+
+  function toggleMobileMenu(open) {
+    if (mobOverlay && mobDrawer) {
+      mobOverlay.classList.toggle('open', open);
+      mobDrawer.classList.toggle('open', open);
+    }
+  }
+
+  if (mobTrigger) mobTrigger.addEventListener('click', () => toggleMobileMenu(true));
+  if (mobClose) mobClose.addEventListener('click', () => toggleMobileMenu(false));
+  if (mobOverlay) mobOverlay.addEventListener('click', () => toggleMobileMenu(false));
+
+  // ---- Storefront Query & Filtering Engine ----
+  const StoreState = {
+    category: 'all',
+    collection: null,
+    sizes: [],
+    priceRange: '',
+    inStockOnly: false,
+    sort: 'featured'
+  };
+
+  function parseUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    StoreState.category = params.get('cat') || 'all';
+    StoreState.collection = params.get('collection') || null;
+  }
+
+  function updateCollectionHeader() {
+    const eyebrow = document.getElementById('collectionEyebrow');
+    const title = document.getElementById('collectionTitle');
+    const desc = document.getElementById('collectionDesc');
+    const crumbActive = document.getElementById('crumbActive');
+
+    if (StoreState.collection && window.PIIIVOT_COLLECTIONS && window.PIIIVOT_COLLECTIONS[StoreState.collection]) {
+      const col = window.PIIIVOT_COLLECTIONS[StoreState.collection];
+      eyebrow.textContent = `Collection // ${col.releaseYear}`;
+      title.textContent = col.name;
+      desc.textContent = col.description;
+      crumbActive.textContent = col.name;
+      document.title = `${col.name} — PIIIVOT Shop`;
+      return;
+    }
+
+    const cat = (window.PIIIVOT_CATEGORIES && window.PIIIVOT_CATEGORIES[StoreState.category]) 
+      ? window.PIIIVOT_CATEGORIES[StoreState.category] 
+      : window.PIIIVOT_CATEGORIES.all;
+
+    eyebrow.textContent = StoreState.category === 'all' ? 'The Catalog' : 'Category / Division';
+    title.textContent = cat.name;
+    desc.textContent = cat.description;
+    crumbActive.textContent = cat.name;
+    document.title = `${cat.name} — PIIIVOT Shop`;
+  }
+
+  function updateActiveTabs() {
+    document.querySelectorAll('.cat-tab').forEach(tab => {
+      const cat = tab.getAttribute('data-cat');
+      const col = tab.getAttribute('data-collection');
+      if (col && StoreState.collection === col) {
+        tab.classList.add('active');
+      } else if (!StoreState.collection && cat === StoreState.category) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+  }
+
+  function renderActiveFilterPills() {
+    const container = document.getElementById('activeFilterTags');
+    const pills = [];
+
+    if (StoreState.category && StoreState.category !== 'all') {
+      pills.push(`<span class="active-tag" onclick="removeCategoryFilter()">${StoreState.category.toUpperCase()} ✕</span>`);
+    }
+    if (StoreState.collection) {
+      pills.push(`<span class="active-tag" onclick="removeCollectionFilter()">${StoreState.collection.toUpperCase()} ✕</span>`);
+    }
+    StoreState.sizes.forEach(s => {
+      pills.push(`<span class="active-tag" onclick="removeSizeFilter('${s}')">SIZE: ${s} ✕</span>`);
+    });
+    if (StoreState.priceRange) {
+      const label = StoreState.priceRange === 'under-500' ? '< ৳500' : (StoreState.priceRange === '500-1000' ? '৳500-৳1k' : '> ৳1k');
+      pills.push(`<span class="active-tag" onclick="removePriceFilter()">${label} ✕</span>`);
+    }
+    if (StoreState.inStockOnly) {
+      pills.push(`<span class="active-tag" onclick="removeStockFilter()">IN STOCK ONLY ✕</span>`);
+    }
+
+    if (pills.length > 0) {
+      container.innerHTML = pills.join('') + `<button class="clear-filters-btn" onclick="resetAllFilters()">Clear All</button>`;
+    } else {
+      container.innerHTML = '';
+    }
+  }
+
+  function renderProducts() {
+    if (!window.PIIIVOT_CATALOG) return;
+
+    const grid = document.getElementById('shopProductGrid');
+    const zeroState = document.getElementById('shopZeroState');
+    const countBadge = document.getElementById('productCountBadge');
+
+    const products = window.PIIIVOT_CATALOG.filterAndSort({
+      category: StoreState.collection ? null : StoreState.category,
+      collection: StoreState.collection,
+      sizes: StoreState.sizes,
+      priceRange: StoreState.priceRange,
+      inStockOnly: StoreState.inStockOnly,
+      sort: StoreState.sort
+    });
+
+    countBadge.textContent = `${products.length} PRODUCT${products.length === 1 ? '' : 'S'}`;
+
+    if (products.length === 0) {
+      grid.style.display = 'none';
+      zeroState.classList.add('show');
+    } else {
+      grid.style.display = 'grid';
+      zeroState.classList.remove('show');
+      grid.innerHTML = products.map(p => window.PIIIVOT_CATALOG.renderCardHTML(p, 'light')).join('');
+    }
+
+    renderActiveFilterPills();
+  }
+
+  // Filter Modifiers
+  function removeCategoryFilter() {
+    StoreState.category = 'all';
+    history.pushState(null, '', 'shop.html');
+    updateCollectionHeader();
+    updateActiveTabs();
+    renderProducts();
+  }
+
+  function removeCollectionFilter() {
+    StoreState.collection = null;
+    StoreState.category = 'all';
+    history.pushState(null, '', 'shop.html');
+    updateCollectionHeader();
+    updateActiveTabs();
+    renderProducts();
+  }
+
+  function removeSizeFilter(size) {
+    StoreState.sizes = StoreState.sizes.filter(s => s !== size);
+    document.querySelectorAll(`input[name="sizeFilter"][value="${size}"]`).forEach(el => el.checked = false);
+    renderProducts();
+  }
+
+  function removePriceFilter() {
+    StoreState.priceRange = '';
+    const allPriceRadio = document.querySelector('input[name="priceFilter"][value=""]');
+    if (allPriceRadio) allPriceRadio.checked = true;
+    renderProducts();
+  }
+
+  function removeStockFilter() {
+    StoreState.inStockOnly = false;
+    const check = document.getElementById('inStockCheck');
+    if (check) check.checked = false;
+    renderProducts();
+  }
+
+  function resetAllFilters() {
+    StoreState.category = 'all';
+    StoreState.collection = null;
+    StoreState.sizes = [];
+    StoreState.priceRange = '';
+    StoreState.inStockOnly = false;
+    StoreState.sort = 'featured';
+
+    document.querySelectorAll('input[name="sizeFilter"]').forEach(el => el.checked = false);
+    const allPriceRadio = document.querySelector('input[name="priceFilter"][value=""]');
+    if (allPriceRadio) allPriceRadio.checked = true;
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) sortSelect.value = 'featured';
+
+    history.pushState(null, '', 'shop.html');
+    updateCollectionHeader();
+    updateActiveTabs();
+    renderProducts();
+  }
+
+  // Event Listeners for Filters & Sorting
+  document.getElementById('filterToggleBtn').addEventListener('click', () => {
+    document.getElementById('filterPanel').classList.toggle('open');
+  });
+
+  document.querySelectorAll('input[name="sizeFilter"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      StoreState.sizes = Array.from(document.querySelectorAll('input[name="sizeFilter"]:checked')).map(el => el.value);
+      renderProducts();
+    });
+  });
+
+  document.querySelectorAll('input[name="priceFilter"]').forEach(rb => {
+    rb.addEventListener('change', () => {
+      StoreState.priceRange = rb.value;
+      renderProducts();
+    });
+  });
+
+  const inStockEl = document.getElementById('inStockCheck');
+  if (inStockEl) {
+    inStockEl.addEventListener('change', () => {
+      StoreState.inStockOnly = inStockEl.checked;
+      renderProducts();
+    });
+  }
+
+  document.getElementById('sortSelect').addEventListener('change', (e) => {
+    StoreState.sort = e.target.value;
+    renderProducts();
+  });
+
+  document.getElementById('resetFiltersBtn').addEventListener('click', resetAllFilters);
+
+  // Initialize Page
+  document.addEventListener('DOMContentLoaded', () => {
+    parseUrlParams();
+    updateCollectionHeader();
+    updateActiveTabs();
+    renderProducts();
+  });
+</script>
+
+</body>
+</html>

@@ -55,11 +55,22 @@
   .logo-group{display:flex; align-items:center; gap:10px; flex-shrink:0;}
   .logo-mark{width:26px; height:26px; flex-shrink:0;}
   .wordmark{font-family:'Anton',sans-serif; font-size:18px; letter-spacing:.08em;}
-  .nav-links{display:flex; gap:clamp(16px, 2.5vw, 30px); font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace;}
+  .nav-links{display:flex; gap:clamp(16px, 2.5vw, 30px); font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; align-items:center;}
+  .nav-item{position:relative;}
   .nav-links a{color:var(--mid); transition:color .2s ease; position:relative; padding:4px 0;}
   .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--paper); transition:width .25s ease;}
   .nav-links a:hover{color:var(--paper);}
   .nav-links a:hover::after{width:100%;}
+  .nav-dropdown{
+    position:absolute; top:100%; left:-16px; width:220px; background:var(--ink-2);
+    border:1px solid var(--line); border-radius:2px; padding:12px 0;
+    box-shadow:0 16px 36px rgba(0,0,0,0.4); opacity:0; visibility:hidden; transform:translateY(10px);
+    transition:all .2s ease; z-index:100;
+  }
+  .nav-item:hover .nav-dropdown, .nav-dropdown:hover{opacity:1; visibility:visible; transform:translateY(0);}
+  .dropdown-link{display:flex; justify-content:space-between; align-items:center; padding:9px 18px; font-size:11px; color:var(--mid); transition:all .2s ease;}
+  .dropdown-link:hover{background:var(--ink-3); color:var(--paper); padding-left:22px;}
+  .dropdown-divider{height:1px; background:var(--line); margin:6px 0;}
   .nav-tools{display:flex; align-items:center; gap:16px;}
   .icon-btn{background:none; border:none; color:var(--mid); position:relative; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:2px; transition:color .2s ease;}
   .icon-btn:hover{color:var(--paper);}
@@ -597,17 +608,27 @@
       <span class="wordmark">PIIIVOT</span>
     </a>
     <div class="nav-links">
-      <a href="index.html#combat">Combat Sports</a>
-      <a href="index.html#apparel">Apparel</a>
-      <a href="index.html#shop">All Gear</a>
-      <a href="index.html#trust">About</a>
+      <div class="nav-item">
+        <a href="shop.html" class="nav-link">Shop ▾</a>
+        <div class="nav-dropdown">
+          <a href="shop.html" class="dropdown-link">All Gear <span>→</span></a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?cat=combat" class="dropdown-link">Combat Fightwear <span>01</span></a>
+          <a href="shop.html?cat=training" class="dropdown-link">Training Gear <span>02</span></a>
+          <a href="shop.html?cat=apparel" class="dropdown-link">Performance Apparel <span>03</span></a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?collection=drop-01" class="dropdown-link" style="color:#22c55e;">First Drop // 2026 <span>★</span></a>
+        </div>
+      </div>
+      <a href="index.html#about">About</a>
+      <a href="index.html#categories">Systems</a>
     </div>
     <div class="nav-tools">
-      <a href="index.html#shop" class="icon-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      </a>
-      <button class="icon-btn" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h2l1.5 10h11L20 8H7"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+      <button class="icon-btn" aria-label="Search" data-search-trigger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Cart" onclick="if(window.PIIIVOT_CART) window.PIIIVOT_CART.open();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         <span class="cart-badge">0</span>
       </button>
       <button class="menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
@@ -618,9 +639,9 @@
 <div class="tech-strip">
   <div class="wrap tech-strip-inner">
     <div class="breadcrumbs">
-      <a href="index.html">PIIIVOT</a> /
-      <a href="index.html#shop">SHOP</a> /
-      <span id="crumbCat">COMBAT</span> /
+      <a href="index.html">Home</a> /
+      <a href="shop.html">Shop</a> /
+      <a id="crumbCatLink" href="shop.html"><span id="crumbCat">COMBAT</span></a> /
       <span id="crumbName">COMBAT 01 SHORTS</span>
     </div>
     <div class="status-tag">
@@ -944,6 +965,8 @@
 
     // Breadcrumbs & Eyebrow
     document.getElementById('crumbCat').textContent = product.category.toUpperCase();
+    const catLink = document.getElementById('crumbCatLink');
+    if (catLink) catLink.href = `shop.html?cat=${product.category}`;
     document.getElementById('crumbName').textContent = product.name.toUpperCase();
     document.getElementById('productCategoryLabel').textContent = `${product.categoryLabel.toUpperCase()} // ${product.badge.toUpperCase()}`;
     document.getElementById('productSku').textContent = product.sku;
@@ -1049,8 +1072,10 @@
 
   function renderRelated(product) {
     const grid = document.getElementById('relatedGrid');
-    const allProducts = Object.values(window.PIIIVOT_PRODUCTS || {});
-    const related = allProducts.filter(p => p.id !== product.id).slice(0, 3);
+    if (!grid) return;
+    const related = window.PIIIVOT_CATALOG 
+      ? window.PIIIVOT_CATALOG.getRelated(product, 3) 
+      : Object.values(window.PIIIVOT_PRODUCTS || {}).filter(p => p.id !== product.id).slice(0, 3);
 
     grid.innerHTML = related.map(p => `
       <article class="related-card">
@@ -1123,6 +1148,11 @@
     renderProduct(id);
   });
 </script>
+
+<!-- Shared Catalog, Cart and Search -->
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
 
 </body>
 </html>
