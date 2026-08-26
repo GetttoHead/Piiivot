@@ -121,6 +121,13 @@
               modified = true;
             }
           }
+          // Clean stale hero eyebrow transforms / duplicate text
+          if (id.includes('hero') && (id.includes('eyebrow') || id.includes('desc') || id.includes('h1'))) {
+            if (styles[id].textContent && styles[id].textContent.toUpperCase().includes('PERFORMANCE GEAR')) {
+              delete styles[id].textContent;
+              modified = true;
+            }
+          }
           // Remove any stale textContent saves — we only restore text that the user explicitly double-clicks & edits
           // textContent is saved only via saveElementContent (on blur after editing), NOT in saveAll sweep
           // So old stale saves from prior saveAll sweeps need clearing

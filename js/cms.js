@@ -12,7 +12,6 @@
     hero: {
       eyebrow: "Combat Sports · Esports & Training — Dhaka, Bangladesh",
       title: "Built to\ncompete.",
-      subtitle: "Performance gear for people who train, compete, and keep moving forward. Explore the first PIIIVOT drop — engineered for combat sports, athletic training, and high-output performance.",
       primaryBtnText: "Shop The First Drop →",
       primaryBtnLink: "#shop",
       secondaryBtnText: "Why PIIIVOT",

@@ -70,26 +70,236 @@
   .mobile-nav-links a span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mid); }
   .mobile-nav-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--mid); }
 
-  /* ---------- HERO (LIGHT / WARM OFF-WHITE WITH DARK WATERMARK) ---------- */
+  /* ---------- HERO (LIGHT / WARM OFF-WHITE WITH MATTE GLASS SHOWCASE) ---------- */
   .hero {
     position: relative;
-    padding: clamp(60px, 10vw, 100px) 0 clamp(50px, 8vw, 85px);
+    padding: clamp(60px, 8vw, 96px) 0 clamp(60px, 8vw, 96px);
     overflow: hidden;
     background: repeating-linear-gradient(115deg, rgba(10, 10, 10, .025) 0 2px, transparent 2px 26px), var(--paper);
     color: var(--ink);
     border-bottom: 1px solid var(--line-light);
   }
-  .hero-inner { position: relative; z-index: 2; }
-  .hero .eyebrow { color: var(--mid-on-light); }
-  .hero h1 { font-size: clamp(38px, 8vw, 84px); margin-top: 16px; word-break: break-word; color: var(--ink); }
-  .hero p { max-width: 560px; margin-top: 20px; color: var(--mid-on-light); font-size: clamp(15px, 2vw, 17px); line-height: 1.55; }
-  .hero-ctas { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
-  .btn-primary, .btn-outline { font-family: 'IBM Plex Mono', monospace; font-size: clamp(11.5px, 1.5vw, 13px); letter-spacing: .07em; text-transform: uppercase; padding: 14px clamp(18px, 3vw, 24px); border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease; text-align: center; }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero .hero-eyebrow {
+    color: var(--mid-on-light);
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6.5vw, 80px);
+    margin-top: 10px;
+    word-break: break-word;
+    color: var(--ink);
+    line-height: 0.94;
+  }
+  .hero .hero-desc {
+    max-width: 520px;
+    margin-top: 22px;
+    color: var(--mid-on-light);
+    font-size: clamp(14.5px, 1.8vw, 16.5px);
+    line-height: 1.6;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .hero-features {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .hero-feat-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--mid-on-light);
+    background: rgba(10, 10, 10, 0.04);
+    border: 1px solid rgba(10, 10, 10, 0.09);
+    padding: 5px 10px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-feat-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  }
+
+  .btn-primary, .btn-outline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11.5px, 1.5vw, 13px);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 14px clamp(18px, 3vw, 24px);
+    border-radius: var(--radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+    text-align: center;
+  }
   .btn-primary { background: var(--ink); color: var(--paper); font-weight: 600; }
   .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
   .btn-outline { border: 1px solid var(--line-light); color: var(--ink); }
   .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
-  .hero-watermark { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); width: clamp(440px, 54vw, 760px); aspect-ratio: 200 / 144; opacity: .085; z-index: 1; pointer-events: none; user-select: none; }
+  
+  .hero-watermark {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(440px, 54vw, 760px);
+    aspect-ratio: 200 / 144;
+    opacity: .07;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ---------- MATTE GLASS PRODUCT CARDS (HERO SHOWCASE) ---------- */
+  .hero-glass-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 3;
+    width: 100%;
+  }
+
+  .matte-glass-card {
+    background: rgba(255, 255, 255, 0.58);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 4px;
+    padding: 18px 20px;
+    box-shadow: 0 16px 36px rgba(10, 10, 10, 0.05), 0 1px 3px rgba(0,0,0,0.03), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .matte-glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  }
+  .matte-glass-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 22px 48px rgba(10, 10, 10, 0.09), 0 2px 6px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255, 255, 255, 1);
+    border-color: rgba(10, 10, 10, 0.18);
+  }
+
+  .matte-glass-card.card-featured {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 20px 45px rgba(10, 10, 10, 0.07), inset 0 1px 1px rgba(255, 255, 255, 1);
+  }
+
+  .mgc-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+  .mgc-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: rgba(10, 10, 10, 0.07);
+    padding: 3px 7px;
+    border-radius: 2px;
+    display: inline-block;
+    align-self: flex-start;
+    font-weight: 600;
+  }
+  .mgc-badge.live {
+    background: #0a0a0a;
+    color: #f5f4ef;
+  }
+  .mgc-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 19px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 2px 0 0;
+    line-height: 1.1;
+  }
+  .mgc-specs {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-on-light);
+    letter-spacing: .02em;
+  }
+  .mgc-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .mgc-price {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .mgc-btn {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--ink);
+    cursor: pointer;
+  }
+  .matte-glass-card:hover .mgc-btn {
+    background: #22c55e;
+    color: #0a0a0a;
+    border-color: #22c55e;
+  }
 
   /* ---------- CATEGORY SHOWCASE (INTERACTIVE MATCHUP) ---------- */
   .matchup { padding: clamp(50px, 8vw, 75px) 0 0; }
@@ -231,6 +441,8 @@
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .menu-btn { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-glass-showcase { margin-top: 10px; }
     .matchup-grid { grid-template-columns: 1fr; gap: 0; }
     .vs-badge { margin: -28px auto; }
     .cat-panel.dark { border-right: 1px solid var(--line); border-bottom: none; }
@@ -245,6 +457,8 @@
   @media (max-width: 560px) {
     .wrap, nav { padding-left: 20px; padding-right: 20px; }
     .product-grid { grid-template-columns: 1fr; }
+    .matte-glass-card { padding: 14px 16px; }
+    .mgc-title { font-size: 17px; }
     .access-form { flex-direction: column; }
     .access-form input, .access-form button { border-radius: var(--radius); border: 1px solid var(--line-light); }
     .access-form button { padding: 14px; margin-top: 6px; }
@@ -313,12 +527,61 @@
 <!-- Hero Section -->
 <section class="hero" id="hero">
   <div class="wrap hero-inner">
-    <p class="eyebrow">Combat Sports · Esports &amp; Training — Dhaka, Bangladesh</p>
-    <h1>Built to<br>compete.</h1>
-    <p>Performance gear for people who train, compete, and keep moving forward. Explore the first PIIIVOT drop — engineered for combat sports, athletic training, and high-output performance.</p>
-    <div class="hero-ctas">
-      <a class="btn-primary" href="#shop">Shop The First Drop →</a>
-      <a class="btn-outline" href="#about">Why PIIIVOT</a>
+    <div class="hero-content">
+      <span class="eyebrow hero-eyebrow">Combat Sports · Esports &amp; Training — Dhaka, Bangladesh</span>
+      <h1>Built to<br>compete.</h1>
+      <p class="hero-desc">Performance gear for people who train, compete, and keep moving forward. Explore the first PIIIVOT drop — engineered for combat sports, athletic training, and high-output performance.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#shop">Shop The First Drop →</a>
+        <a class="btn-outline" href="#about">Why PIIIVOT</a>
+      </div>
+      <div class="hero-features">
+        <span class="hero-feat-tag">4-Way Stretch Fightwear</span>
+        <span class="hero-feat-tag">Dhaka Local Drop</span>
+        <span class="hero-feat-tag">Match Tested</span>
+      </div>
+    </div>
+
+    <!-- Matte Glass Product Cards Showcase -->
+    <div class="hero-glass-showcase">
+      <!-- Card 1 -->
+      <a href="product.html?id=combat-01-shorts" class="matte-glass-card card-featured">
+        <div class="mgc-left">
+          <span class="mgc-badge live">01 // COMBAT MATTE SPEC</span>
+          <h3 class="mgc-title">COMBAT 01 SHORTS</h3>
+          <span class="mgc-specs">4-Way Flex · Quick-Dry Mat Tech</span>
+        </div>
+        <div class="mgc-right">
+          <span class="mgc-price">৳ 1,490</span>
+          <span class="mgc-btn">View Gear →</span>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="product.html?id=hand-wraps-01" class="matte-glass-card">
+        <div class="mgc-left">
+          <span class="mgc-badge">02 // 180" MEXICAN SPEC</span>
+          <h3 class="mgc-title">PERFORMANCE HAND WRAPS</h3>
+          <span class="mgc-specs">Semi-Elastic · Secure Thumb Lock</span>
+        </div>
+        <div class="mgc-right">
+          <span class="mgc-price">৳ 450</span>
+          <span class="mgc-btn">View Gear →</span>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="product.html?id=training-tee-01" class="matte-glass-card">
+        <div class="mgc-left">
+          <span class="mgc-badge">03 // APPAREL PERFORMANCE</span>
+          <h3 class="mgc-title">TRAINING TEE 01</h3>
+          <span class="mgc-specs">260 GSM Heavyweight · Relaxed Athletic Fit</span>
+        </div>
+        <div class="mgc-right">
+          <span class="mgc-price">৳ 990</span>
+          <span class="mgc-btn">View Gear →</span>
+        </div>
+      </a>
     </div>
   </div>
   <span class="hero-watermark" data-logo="light"></span>
