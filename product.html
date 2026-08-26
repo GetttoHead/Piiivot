@@ -62,15 +62,48 @@
   .nav-links a:hover{color:var(--paper);}
   .nav-links a:hover::after{width:100%;}
   .nav-dropdown{
-    position:absolute; top:100%; left:-16px; width:220px; background:var(--ink-2);
-    border:1px solid var(--line); border-radius:2px; padding:12px 0;
-    box-shadow:0 16px 36px rgba(0,0,0,0.4); opacity:0; visibility:hidden; transform:translateY(10px);
-    transition:all .2s ease; z-index:100;
+    position:absolute;
+    top:calc(100% + 8px);
+    left:-12px;
+    width:250px;
+    background:rgba(16,16,15,0.94);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border:1px solid rgba(245,244,239,0.12);
+    border-radius:4px;
+    padding:8px;
+    box-shadow:0 20px 45px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.05);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
+    z-index:1000;
   }
   .nav-item:hover .nav-dropdown, .nav-dropdown:hover{opacity:1; visibility:visible; transform:translateY(0);}
-  .dropdown-link{display:flex; justify-content:space-between; align-items:center; padding:9px 18px; font-size:11px; color:var(--mid); transition:all .2s ease;}
-  .dropdown-link:hover{background:var(--ink-3); color:var(--paper); padding-left:22px;}
-  .dropdown-divider{height:1px; background:var(--line); margin:6px 0;}
+  .dropdown-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--mid);
+    border-radius:2px;
+    transition:all .18s ease;
+    text-decoration:none;
+  }
+  .dropdown-link span.arrow{transition:transform .18s ease; color:var(--paper); font-size:12px;}
+  .dropdown-link span.num{font-size:10px; color:rgba(245,244,239,0.35); transition:color .18s ease;}
+  .dropdown-link:hover{background:rgba(245,244,239,0.08); color:var(--paper); padding-left:17px;}
+  .dropdown-link:hover span.arrow{transform:translateX(3px);}
+  .dropdown-link:hover span.num{color:var(--paper);}
+  .dropdown-link.main-link{font-weight:700; color:var(--paper); background:rgba(245,244,239,0.04); margin-bottom:4px;}
+  .dropdown-link.main-link:hover{background:rgba(245,244,239,0.12);}
+  .dropdown-divider{height:1px; background:rgba(245,244,239,0.08); margin:6px 4px;}
+  .dropdown-link.special-link{color:#e5e5e0; display:flex; align-items:center; justify-content:space-between;}
+  .dropdown-link.special-link .badge-dot{width:6px; height:6px; background:#22c55e; border-radius:50%; box-shadow:0 0 6px rgba(34,197,94,0.8);}
   .nav-tools{display:flex; align-items:center; gap:16px;}
   .icon-btn{background:none; border:none; color:var(--mid); position:relative; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:2px; transition:color .2s ease;}
   .icon-btn:hover{color:var(--paper);}
@@ -611,13 +644,28 @@
       <div class="nav-item">
         <a href="shop.html" class="nav-link">Shop ▾</a>
         <div class="nav-dropdown">
-          <a href="shop.html" class="dropdown-link">All Gear <span>→</span></a>
+          <a href="shop.html" class="dropdown-link main-link">
+            <span>All Gear</span>
+            <span class="arrow">→</span>
+          </a>
           <div class="dropdown-divider"></div>
-          <a href="shop.html?cat=combat" class="dropdown-link">Combat Fightwear <span>01</span></a>
-          <a href="shop.html?cat=training" class="dropdown-link">Training Gear <span>02</span></a>
-          <a href="shop.html?cat=apparel" class="dropdown-link">Performance Apparel <span>03</span></a>
+          <a href="shop.html?cat=combat" class="dropdown-link">
+            <span>Combat Fightwear</span>
+            <span class="num">01</span>
+          </a>
+          <a href="shop.html?cat=training" class="dropdown-link">
+            <span>Training Gear</span>
+            <span class="num">02</span>
+          </a>
+          <a href="shop.html?cat=apparel" class="dropdown-link">
+            <span>Performance Apparel</span>
+            <span class="num">03</span>
+          </a>
           <div class="dropdown-divider"></div>
-          <a href="shop.html?collection=drop-01" class="dropdown-link" style="color:#22c55e;">First Drop // 2026 <span>★</span></a>
+          <a href="shop.html?collection=drop-01" class="dropdown-link special-link">
+            <span>First Drop // 2026</span>
+            <span class="badge-dot"></span>
+          </a>
         </div>
       </div>
       <a href="index.html#about">About</a>
