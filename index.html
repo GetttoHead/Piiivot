@@ -982,6 +982,18 @@
         <stop offset="0%" stop-color="#f2f0e8"/><stop offset="55%" stop-color="#98958a"/><stop offset="100%" stop-color="#302f2a"/>
       </radialGradient></defs>
       <path d="M55 130 C55 80 75 45 100 45 C125 45 145 80 145 130 L145 160 C145 175 133 186 118 186 L112 186 L112 150 L100 150 L100 190 L72 190 L72 150 L88 150 L88 186 L82 186 C67 186 55 175 55 160Z" fill="url(#g5)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+    { tag:'Combat', title:'Combat 01 Fight Shorts', desc:'4-way stretch ripstop, flex split-seam mobility.',
+      bg:'linear-gradient(160deg, #44423c 0%, #1a1917 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f5f4ef"/><stop offset="50%" stop-color="#8c897f"/><stop offset="100%" stop-color="#2c2b27"/>
+      </linearGradient></defs>
+      <path d="M50 70 L150 70 L160 110 L134 110 L154 210 L112 210 L102 140 L98 140 L88 210 L46 210 L66 110 L40 110 Z" fill="url(#g6)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
+    { tag:'Apparel', title:'Heavyweight Training Tee', desc:'260 GSM boxy drop-shoulder athletic training tee.',
+      bg:'linear-gradient(160deg, #4a4843 0%, #1d1c1a 60%, #0a0a0a 100%)',
+      icon:`<svg viewBox="0 0 200 240"><defs><linearGradient id="g7" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f5f4ef"/><stop offset="55%" stop-color="#959288"/><stop offset="100%" stop-color="#2a2925"/>
+      </linearGradient></defs>
+      <path d="M60 55 L82 45 L118 45 L140 55 L175 80 L150 110 L135 95 L135 205 L65 205 L65 95 L50 110 L25 80 Z" fill="url(#g7)" stroke="#1a1a18" stroke-width="2" stroke-linejoin="round"/></svg>` },
   ];
 
   const track = document.getElementById('track');
@@ -1124,15 +1136,15 @@
   window.addEventListener('mouseup', onDragEnd);
 
   let autoTimer;
-  function startAuto(){ autoTimer = setInterval(()=>{ current=(current+1)%GEAR.length; render(); }, 4000); }
+  function startAuto(){ autoTimer = setInterval(()=>{ current=(current+1)%GEAR.length; render(); }, 2000); }
   function resetAuto(){ clearInterval(autoTimer); startAuto(); }
 
   render();
   startAuto();
 
-  const stage = document.querySelector('.stage');
-  stage.addEventListener('mouseenter', ()=> clearInterval(autoTimer));
-  stage.addEventListener('mouseleave', startAuto);
+  // Auto-pause ONLY when cursor is directly over the cards track
+  track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  track.addEventListener('mouseleave', startAuto);
 })();
 </script>
 
