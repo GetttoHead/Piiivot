@@ -327,43 +327,45 @@
   .matchup-grid:has(#combat:hover) #apparel .cat-icon path,
   .matchup-grid.hover-combat #apparel .cat-icon path { stroke: #f5f4ef; }
 
-  /* 3. Hovering over Right (#apparel): #apparel becomes Black, #combat becomes White */
+  /* 3. Hovering over Right (#apparel): #apparel is White (hovered), #combat is Black (opposite) */
   .matchup-grid:has(#apparel:hover) #apparel,
   .matchup-grid.hover-apparel #apparel {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--line);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 45px rgba(0,0,0,0.35);
-    z-index: 3;
-  }
-  .matchup-grid:has(#apparel:hover) #apparel .cat-tag,
-  .matchup-grid.hover-apparel #apparel .cat-tag { color: var(--mid); }
-  .matchup-grid:has(#apparel:hover) #apparel p,
-  .matchup-grid.hover-apparel #apparel p { color: var(--mid); }
-  .matchup-grid:has(#apparel:hover) #apparel .cat-cta,
-  .matchup-grid.hover-apparel #apparel .cat-cta { color: var(--paper); }
-  .matchup-grid:has(#apparel:hover) #apparel .cat-icon,
-  .matchup-grid.hover-apparel #apparel .cat-icon { opacity: .08; }
-  .matchup-grid:has(#apparel:hover) #apparel .cat-icon path,
-  .matchup-grid.hover-apparel #apparel .cat-icon path { stroke: #f5f4ef; }
-
-  .matchup-grid:has(#apparel:hover) #combat,
-  .matchup-grid.hover-apparel #combat {
     background: var(--paper);
     color: var(--ink);
     border-color: var(--line-light);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+    z-index: 3;
+  }
+  .matchup-grid:has(#apparel:hover) #apparel .cat-tag,
+  .matchup-grid.hover-apparel #apparel .cat-tag { color: var(--mid-on-light); }
+  .matchup-grid:has(#apparel:hover) #apparel p,
+  .matchup-grid.hover-apparel #apparel p { color: var(--mid-on-light); }
+  .matchup-grid:has(#apparel:hover) #apparel .cat-cta,
+  .matchup-grid.hover-apparel #apparel .cat-cta { color: var(--ink); }
+  .matchup-grid:has(#apparel:hover) #apparel .cat-icon,
+  .matchup-grid.hover-apparel #apparel .cat-icon { opacity: .05; }
+  .matchup-grid:has(#apparel:hover) #apparel .cat-icon path,
+  .matchup-grid.hover-apparel #apparel .cat-icon path { stroke: #0a0a0a; }
+
+  .matchup-grid:has(#apparel:hover) #combat,
+  .matchup-grid.hover-apparel #combat {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--line);
+    transform: translateY(0);
+    box-shadow: none;
   }
   .matchup-grid:has(#apparel:hover) #combat .cat-tag,
-  .matchup-grid.hover-apparel #combat .cat-tag { color: var(--mid-on-light); }
+  .matchup-grid.hover-apparel #combat .cat-tag { color: var(--mid); }
   .matchup-grid:has(#apparel:hover) #combat p,
-  .matchup-grid.hover-apparel #combat p { color: var(--mid-on-light); }
+  .matchup-grid.hover-apparel #combat p { color: var(--mid); }
   .matchup-grid:has(#apparel:hover) #combat .cat-cta,
-  .matchup-grid.hover-apparel #combat .cat-cta { color: var(--ink); }
+  .matchup-grid.hover-apparel #combat .cat-cta { color: var(--paper); }
   .matchup-grid:has(#apparel:hover) #combat .cat-icon,
-  .matchup-grid.hover-apparel #combat .cat-icon { opacity: .05; }
+  .matchup-grid.hover-apparel #combat .cat-icon { opacity: .08; }
   .matchup-grid:has(#apparel:hover) #combat .cat-icon path,
-  .matchup-grid.hover-apparel #combat .cat-icon path { stroke: #0a0a0a; }
+  .matchup-grid.hover-apparel #combat .cat-icon path { stroke: #f5f4ef; }
 
   /* ---------- TAPE DIVIDER ---------- */
   .tape { position: relative; height: 56px; display: flex; align-items: center; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
