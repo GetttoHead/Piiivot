@@ -292,80 +292,82 @@
   /* 2. Hovering over Left (#combat): #combat becomes White, #apparel becomes Black */
   .matchup-grid:has(#combat:hover) #combat,
   .matchup-grid.hover-combat #combat {
-    background: var(--paper);
-    color: var(--ink);
-    border-color: var(--line-light);
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border-color: var(--line-light) !important;
     transform: translateY(-4px);
     box-shadow: 0 20px 45px rgba(0,0,0,0.18);
     z-index: 3;
   }
   .matchup-grid:has(#combat:hover) #combat .cat-tag,
-  .matchup-grid.hover-combat #combat .cat-tag { color: var(--mid-on-light); }
+  .matchup-grid.hover-combat #combat .cat-tag { color: var(--mid-on-light) !important; }
   .matchup-grid:has(#combat:hover) #combat p,
-  .matchup-grid.hover-combat #combat p { color: var(--mid-on-light); }
+  .matchup-grid.hover-combat #combat p { color: var(--mid-on-light) !important; }
   .matchup-grid:has(#combat:hover) #combat .cat-cta,
-  .matchup-grid.hover-combat #combat .cat-cta { color: var(--ink); }
+  .matchup-grid.hover-combat #combat .cat-cta { color: var(--ink) !important; }
   .matchup-grid:has(#combat:hover) #combat .cat-icon,
-  .matchup-grid.hover-combat #combat .cat-icon { opacity: .05; }
+  .matchup-grid.hover-combat #combat .cat-icon { opacity: .05 !important; }
   .matchup-grid:has(#combat:hover) #combat .cat-icon path,
-  .matchup-grid.hover-combat #combat .cat-icon path { stroke: #0a0a0a; }
+  .matchup-grid.hover-combat #combat .cat-icon path { stroke: #0a0a0a !important; }
 
   .matchup-grid:has(#combat:hover) #apparel,
   .matchup-grid.hover-combat #apparel {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--line);
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    border-color: var(--line) !important;
+    transform: translateY(0);
+    box-shadow: none;
   }
   .matchup-grid:has(#combat:hover) #apparel .cat-tag,
-  .matchup-grid.hover-combat #apparel .cat-tag { color: var(--mid); }
+  .matchup-grid.hover-combat #apparel .cat-tag { color: var(--mid) !important; }
   .matchup-grid:has(#combat:hover) #apparel p,
-  .matchup-grid.hover-combat #apparel p { color: var(--mid); }
+  .matchup-grid.hover-combat #apparel p { color: var(--mid) !important; }
   .matchup-grid:has(#combat:hover) #apparel .cat-cta,
-  .matchup-grid.hover-combat #apparel .cat-cta { color: var(--paper); }
+  .matchup-grid.hover-combat #apparel .cat-cta { color: var(--paper) !important; }
   .matchup-grid:has(#combat:hover) #apparel .cat-icon,
-  .matchup-grid.hover-combat #apparel .cat-icon { opacity: .08; }
+  .matchup-grid.hover-combat #apparel .cat-icon { opacity: .08 !important; }
   .matchup-grid:has(#combat:hover) #apparel .cat-icon path,
-  .matchup-grid.hover-combat #apparel .cat-icon path { stroke: #f5f4ef; }
+  .matchup-grid.hover-combat #apparel .cat-icon path { stroke: #f5f4ef !important; }
 
   /* 3. Hovering over Right (#apparel): #apparel is White (hovered), #combat is Black (opposite) */
   .matchup-grid:has(#apparel:hover) #apparel,
   .matchup-grid.hover-apparel #apparel {
-    background: var(--paper);
-    color: var(--ink);
-    border-color: var(--line-light);
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border-color: var(--line-light) !important;
     transform: translateY(-4px);
     box-shadow: 0 20px 45px rgba(0,0,0,0.18);
     z-index: 3;
   }
   .matchup-grid:has(#apparel:hover) #apparel .cat-tag,
-  .matchup-grid.hover-apparel #apparel .cat-tag { color: var(--mid-on-light); }
+  .matchup-grid.hover-apparel #apparel .cat-tag { color: var(--mid-on-light) !important; }
   .matchup-grid:has(#apparel:hover) #apparel p,
-  .matchup-grid.hover-apparel #apparel p { color: var(--mid-on-light); }
+  .matchup-grid.hover-apparel #apparel p { color: var(--mid-on-light) !important; }
   .matchup-grid:has(#apparel:hover) #apparel .cat-cta,
-  .matchup-grid.hover-apparel #apparel .cat-cta { color: var(--ink); }
+  .matchup-grid.hover-apparel #apparel .cat-cta { color: var(--ink) !important; }
   .matchup-grid:has(#apparel:hover) #apparel .cat-icon,
-  .matchup-grid.hover-apparel #apparel .cat-icon { opacity: .05; }
+  .matchup-grid.hover-apparel #apparel .cat-icon { opacity: .05 !important; }
   .matchup-grid:has(#apparel:hover) #apparel .cat-icon path,
-  .matchup-grid.hover-apparel #apparel .cat-icon path { stroke: #0a0a0a; }
+  .matchup-grid.hover-apparel #apparel .cat-icon path { stroke: #0a0a0a !important; }
 
   .matchup-grid:has(#apparel:hover) #combat,
   .matchup-grid.hover-apparel #combat {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--line);
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    border-color: var(--line) !important;
     transform: translateY(0);
     box-shadow: none;
   }
   .matchup-grid:has(#apparel:hover) #combat .cat-tag,
-  .matchup-grid.hover-apparel #combat .cat-tag { color: var(--mid); }
+  .matchup-grid.hover-apparel #combat .cat-tag { color: var(--mid) !important; }
   .matchup-grid:has(#apparel:hover) #combat p,
-  .matchup-grid.hover-apparel #combat p { color: var(--mid); }
+  .matchup-grid.hover-apparel #combat p { color: var(--mid) !important; }
   .matchup-grid:has(#apparel:hover) #combat .cat-cta,
-  .matchup-grid.hover-apparel #combat .cat-cta { color: var(--paper); }
+  .matchup-grid.hover-apparel #combat .cat-cta { color: var(--paper) !important; }
   .matchup-grid:has(#apparel:hover) #combat .cat-icon,
-  .matchup-grid.hover-apparel #combat .cat-icon { opacity: .08; }
+  .matchup-grid.hover-apparel #combat .cat-icon { opacity: .08 !important; }
   .matchup-grid:has(#apparel:hover) #combat .cat-icon path,
-  .matchup-grid.hover-apparel #combat .cat-icon path { stroke: #f5f4ef; }
+  .matchup-grid.hover-apparel #combat .cat-icon path { stroke: #f5f4ef !important; }
 
   /* ---------- TAPE DIVIDER ---------- */
   .tape { position: relative; height: 56px; display: flex; align-items: center; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
@@ -897,21 +899,31 @@
   const apparelPanel = document.getElementById('apparel');
 
   if (matchupGrid && combatPanel && apparelPanel) {
-    function handleMatchupHover(e) {
-      const panel = e.target.closest('.cat-panel');
-      if (panel === combatPanel) {
+    function setHover(target) {
+      if (target === 'combat') {
         matchupGrid.classList.add('hover-combat');
         matchupGrid.classList.remove('hover-apparel');
-      } else if (panel === apparelPanel) {
+      } else if (target === 'apparel') {
         matchupGrid.classList.add('hover-apparel');
         matchupGrid.classList.remove('hover-combat');
+      } else {
+        matchupGrid.classList.remove('hover-combat', 'hover-apparel');
       }
     }
 
-    matchupGrid.addEventListener('pointerover', handleMatchupHover);
-    matchupGrid.addEventListener('pointermove', handleMatchupHover);
-    matchupGrid.addEventListener('pointerleave', () => {
-      matchupGrid.classList.remove('hover-combat', 'hover-apparel');
+    combatPanel.addEventListener('pointerenter', () => setHover('combat'));
+    apparelPanel.addEventListener('pointerenter', () => setHover('apparel'));
+    matchupGrid.addEventListener('pointerleave', () => setHover(null));
+
+    matchupGrid.addEventListener('pointermove', (e) => {
+      const panel = e.target.closest('.cat-panel');
+      if (panel === combatPanel) {
+        setHover('combat');
+      } else if (panel === apparelPanel) {
+        setHover('apparel');
+      } else {
+        setHover(null);
+      }
     });
   }
 
